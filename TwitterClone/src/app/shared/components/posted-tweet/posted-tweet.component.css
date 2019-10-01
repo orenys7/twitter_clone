@@ -1,0 +1,33 @@
+mat-card {
+    width: 95%;
+}
+
+.tweet-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.profile-img {
+    width: 10%;
+    height: 10%;
+}
+
+.tweet-details {
+    margin-left: 1em;
+}
+
+.tweet-content {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-width: 73ch;
+}
+
+.tweet-tools {
+    margin-right: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}

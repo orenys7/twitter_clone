@@ -1,0 +1,19 @@
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.profile-img {
+    margin: 2em 2em 2em 2em;
+    width: 10%;
+    height: 10%;
+}
+
+.profile-details {
+    margin: 2em 2em 2em 2em;
+}
+
+.profile-details * {
+    padding-bottom: 0.4em;
+}

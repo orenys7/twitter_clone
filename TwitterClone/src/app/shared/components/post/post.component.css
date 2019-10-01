@@ -1,0 +1,23 @@
+mat-card {
+    width: 80%;
+}
+
+.post-form {
+    height: 30%;
+    width: 100%;
+}
+
+mat-form-field {
+    align-content: center;
+    width: 90%;
+}
+
+.post-form__details {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+mat-raised-button {
+    justify-self: flex-end;
+}

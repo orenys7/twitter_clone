@@ -8,7 +8,6 @@
 .toolbar__left-links {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
 }
 
 .toolbar__right-links {
