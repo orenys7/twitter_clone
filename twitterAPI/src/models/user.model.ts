@@ -2,11 +2,12 @@ import mongoose from 'mongoose';
 import CryptoJS from 'crypto-js';
 import uniqueValidator from 'mongoose-unique-validator';
 import jwt from 'jsonwebtoken';
-import { config } from '../config';
+import { devConfig } from '../config/env/dev';
 
 export interface IUser extends Document {
     username: String;
     email: String;
+    password: String;
     validPassword: (password: string) => boolean;
     generateJWT: () => string;
     setPassword: (password: string) => void;  
@@ -31,6 +32,10 @@ const UserSchema = new mongoose.Schema({
         required: [true, "can't be blank"],
         match: [/\S+@\S+\.\S+/, 'is invalid'],
         index: true
+    },
+    password: {
+        type: String,
+        required: true,
     },
     image: String,
     hash: String,
@@ -63,7 +68,7 @@ UserSchema.methods.generateJWT = function () {
         id: this._id,
         username: this.username,
         exp: parseInt(`${exp.getTime() / 1000}`),
-    }, config.secret);
+    }, devConfig.secret);
 }
 
 UserSchema.methods.toAuthJSON = function () {
@@ -76,4 +81,4 @@ UserSchema.methods.toAuthJSON = function () {
     };
 };
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model<IUser>('User', UserSchema);
