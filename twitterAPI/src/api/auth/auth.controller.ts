@@ -5,7 +5,7 @@ import {
     OK
 } from 'http-status-codes';
 import { Request, Response } from 'express';
-import bcryptjs from 'bcryptjs';
+// import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import authService from './auth.service';
 import User from '../../models/user.model';
@@ -35,7 +35,7 @@ export default {
             if(!user){
                 return res.status(BAD_REQUEST).json({ err: 'Invalid email or password' });
             }
-            const matched = await User.validPassword(value.password); //await bcryptjs.compare(value.password, user.password);
+            const matched = await user.validPassword(value.password); //await bcryptjs.compare(value.password, user.password);
             if(!matched){
                 return res.status(UNAUTHORIZED).json({ err: 'Invalid credentials' });
             }

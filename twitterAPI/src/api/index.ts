@@ -1,11 +1,8 @@
-import express from 'express';
-// import { registerRouter } from './resources/invoice';
-// import { loginRouter } from './resources/client';
-// import { membersRouter } from './resources/user';
-// import { tweetsRouter } from './resources/user';
+import { Router } from 'express';
+import authRouter from './auth/auth.route';
 
-export const restRouter = express.Router();
-// restRouter.use('/register', clientRouter);
+export const restRouter = Router();
+restRouter.use('/auth', authRouter);
 // restRouter.use('/login', invoiceRouter);
 // restRouter.use('/members', userRouter);
 // restRouter.use('/tweets', userRouter);

@@ -1,5 +1,5 @@
 export const devConfig = {
-    port: 3000,
+    port: 27017,
     database: 'TwitterClone',
     secret: 'secret',
   };

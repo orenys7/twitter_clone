@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 class Model {
   email = '';
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   model = new Model();
   loginForm: FormGroup;
   
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private authService: AuthService) { 
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('[A-Z]+')]]

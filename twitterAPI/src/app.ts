@@ -11,7 +11,8 @@ import { setGlobalMiddleware } from './api/middlewares/global.middleware';
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://localhost/${devConfig.database}`,
+mongoose.connect(`mongodb+srv://admin:admin@twitterclone-zrea5.azure.mongodb.net/admin?retryWrites=true&w=majority`, //mongodb://localhost/${devConfig.database}
+{ useNewUrlParser: true, useUnifiedTopology: true },
   () => console.log('connected to DB')
 );
 const app = express();
@@ -22,14 +23,14 @@ app.set('port', port);
 setGlobalMiddleware(app);
 
 app.use('/api',restRouter);
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   const error = new Error('Not found');
   error.message = 'Invalid route';
-  error.status = 404;
+  // error.status = 404;
   next(error);
 });
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-  res.status(error.status || 500);
+  // res.status(error.status || 500);
   return res.json({
     error: {
       message: error.message,

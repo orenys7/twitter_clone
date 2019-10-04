@@ -2,14 +2,17 @@
     <div class="toolbar__container" fullpage>
         <div class="toolbar__left-links" fullpage>
             <button mat-button>Home</button>
-            <button mat-button>Login</button>
-            <button mat-button>Register</button>
-            <button mat-button>Logout</button>
-            <button mat-button>Profile</button>
+            <div *ngIf="checkIfLoggedIn()">
+                <button mat-button>Login</button>
+                <button mat-button>Register</button>
+            </div>
+            <div *ngIf="checkIfLoggedIn()">
+                <button mat-button>Profile</button>
+                <button mat-button>Logout</button>
+            </div>
         </div>
         <div class="toolbar__right-links" fullpage>
-            <button mat-button>EN</button>
-            <button mat-button>ES</button>
+            <button mat-button *ngFor="let lang of languages">{{ lang }}</button>
         </div>
     </div>
 </mat-toolbar>

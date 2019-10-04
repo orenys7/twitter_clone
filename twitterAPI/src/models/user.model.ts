@@ -4,7 +4,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 import jwt from 'jsonwebtoken';
 import { devConfig } from '../config/env/dev';
 
-export interface IUser extends Document {
+export interface IUser extends mongoose.Document {
     username: String;
     email: String;
     password: String;
@@ -42,8 +42,6 @@ const UserSchema = new mongoose.Schema({
     salt: String
 }, { timestamps: true });
 
-UserSchema.plugin(uniqueValidator, { message: 'is already taken.' });
-
 UserSchema.methods.setPassword = function (password: string) {
     this.salt = CryptoJS.lib.WordArray.random(16);
     this.hash = CryptoJS.PBKDF2(password, this.salt, {
@@ -80,5 +78,6 @@ UserSchema.methods.toAuthJSON = function () {
         image: this.image
     };
 };
+UserSchema.plugin(uniqueValidator, { message: 'is already taken.' });
 
 export default mongoose.model<IUser>('User', UserSchema);

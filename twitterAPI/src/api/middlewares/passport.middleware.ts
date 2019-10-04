@@ -3,20 +3,20 @@ import PassportJWT from 'passport-jwt';
 // import passportLocal from 'passport-local';
 // import mongoose from 'mongoose';
 import { devConfig } from '../../config/env/dev';
-import User from '../../models/user.model';
+import User, { IUser } from '../../models/user.model';
 
 
 export const configureJWTStrategy = () =>{
     const opts = {
         jwtFromRequest: PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secret: devConfig.secret
+        secretOrKey: devConfig.secret
     };
-    // opts.jwtFromRequest = PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken();
-    // opts.secret = devConfig.secret;
+    opts.jwtFromRequest = PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken();
+    opts.secretOrKey = devConfig.secret;
 
     passport.use(
         new PassportJWT.Strategy(opts, (payload, done) => {
-            User.findOne({ _id: payload.id }, (err, user) => {
+            User.findOne({ _id: payload.id }, (err:Error, user:IUser) => {
               if (err) {
                 return done(err, false);
               }

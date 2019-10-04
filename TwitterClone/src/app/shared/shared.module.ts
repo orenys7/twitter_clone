@@ -6,7 +6,6 @@ import { MenuComponent } from './layout/menu/menu.component';
 import { FullpageDirective } from './directives/fullpage.directive';
 import { PostComponent } from './components/post/post.component';
 import { FormsModule } from '@angular/forms';
-import { PostedTweetComponent } from './components/posted-tweet/posted-tweet.component';
 import { ProfileHeaderComponent } from './components/profile-header/profile-header.component';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { ProfileHeaderComponent } from './components/profile-header/profile-head
         MenuComponent,
         PostComponent,
         FullpageDirective,
-        PostedTweetComponent,
         ProfileHeaderComponent
     ],
     imports: [
@@ -26,7 +24,6 @@ import { ProfileHeaderComponent } from './components/profile-header/profile-head
     exports: [
         MenuComponent,
         PostComponent,
-        PostedTweetComponent,
         ProfileHeaderComponent,
         AngularMaterialModule,
     ]
