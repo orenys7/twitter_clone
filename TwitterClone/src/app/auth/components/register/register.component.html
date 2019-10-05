@@ -1,17 +1,22 @@
-<mat-card>
-    <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
-        <div class="mat-display-1">Register</div>
-        <mat-form-field>
-            <input matInput placeholder="Enter your email" formControlName="email" required>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Enter your username" formControlName="username" required>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Enter your password" formControlName="password" required>
-        </mat-form-field>
-        <div>
-            <button mat-raised-button type="submit">Register</button>
-        </div>
-    </form>
-</mat-card>
+<main>
+    <mat-card>
+        <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
+            <div class="mat-display-1">Register</div>
+            <mat-form-field>
+                <input matInput placeholder="Email" formControlName="email" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Username" formControlName="username" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Password" formControlName="password" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Image Path" formControlName="image" required>
+            </mat-form-field>
+            <div>
+                <button mat-raised-button type="submit">Register</button>
+            </div>
+        </form>
+    </mat-card>
+</main>

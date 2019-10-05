@@ -1,33 +1,42 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ITweet } from '../models/tweet.model'
+import { HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { ApiService } from './api.service';
+import { ITweet } from '../models/tweet.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TweetService {
 
-  URL = 'http://localhost:3000/';
+  constructor(private apiService: ApiService) { }
 
-  constructor(private http: HttpClient) { }
-
-  create(tweet: ITweet): Promise<ITweet> {
-    this.http.post(this.URL, tweet).toPromise();
-  }
-  
-  getTweets(): Promise<ITweet[]> {
-    this.http.get(this.URL).toPromise();
+  get(): Observable<ITweet> {
+    return this.apiService.get('/tweets')
+      .pipe(map(data => data.tweet));
   }
 
-  getTweetByID(id: number): Promise<ITweet> {
-    this.http.get(`${this.URL}/:${id}`).toPromise();
+  getUserTweets(userID): Observable<ITweet> {
+    return this.apiService.get(`members/:${userID}/tweets`)
+      .pipe(map(data => data.tweet));
   }
 
-  update(tweet: ITweet): Promise<ITweet> {
-    this.http.put(this.URL, tweet).toPromise();
+  post(tweet): Observable<ITweet> {
+    return this.apiService.post('/tweets', { tweet: tweet })
+      .pipe(map(data => data.tweet));
   }
 
-  delete(id: number): Promise<void> {
-    this.http.delete(`${this.URL}/:${id}`).toPromise();
+  delete(id) {
+    return this.apiService.delete(`/tweets/:${id}`);
+  }
+
+  favorite(id): Observable<ITweet> {
+    return this.apiService.post(`/tweets/:${id}/star-toggle`);
+  }
+
+  unfavorite(id): Observable<ITweet> {
+    return this.apiService.delete(`/tweets/:${id}/star-toggle`);
   }
 }

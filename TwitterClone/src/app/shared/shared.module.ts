@@ -6,25 +6,26 @@ import { MenuComponent } from './layout/menu/menu.component';
 import { FullpageDirective } from './directives/fullpage.directive';
 import { PostComponent } from './components/post/post.component';
 import { FormsModule } from '@angular/forms';
-import { ProfileHeaderComponent } from './components/profile-header/profile-header.component';
+import { HomeComponent } from './components/home/home.component';
+import { TweetsModule } from '../tweets/tweets.module';
 
 @NgModule({
     declarations: [
         MenuComponent,
         PostComponent,
         FullpageDirective,
-        ProfileHeaderComponent
+        HomeComponent
     ],
     imports: [
       CommonModule,
       AngularMaterialModule,
       SharedRoutingModule,
-      FormsModule
+      TweetsModule,
+      FormsModule,
     ],
     exports: [
         MenuComponent,
         PostComponent,
-        ProfileHeaderComponent,
         AngularMaterialModule,
     ]
   })

@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IUser } from '../models/user.model';
-import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
+
 import { ApiService } from './api.service';
-import {  JwtService } from './jwt.service';
+import { JwtService } from './jwt.service';
+import { IUser } from '../models';
+import { map ,  distinctUntilChanged } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
 
+@Injectable()
+export class UserService {
   private currentUserSubject = new BehaviorSubject<IUser>({} as IUser);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
@@ -73,14 +72,14 @@ export class AuthService {
   }
 
   // Update the user on the server (email, pass, etc)
-  // update(user): Observable<IUser> {
-  //   return this.apiService
-  //   .put('/user', { user })
-  //   .pipe(map(data => {
-  //     // Update the currentUser observable
-  //     this.currentUserSubject.next(data.user);
-  //     return data.user;
-  //   }));
-  // }
+  update(user): Observable<IUser> {
+    return this.apiService
+    .put('/user', { user })
+    .pipe(map(data => {
+      // Update the currentUser observable
+      this.currentUserSubject.next(data.user);
+      return data.user;
+    }));
+  }
 
 }

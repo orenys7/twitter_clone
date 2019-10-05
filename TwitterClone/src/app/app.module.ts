@@ -4,19 +4,23 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
-import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CoreModule } from './core/core.module';
+import { TweetsModule } from './tweets/tweets.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     NotFoundComponent,
   ],
   imports: [
     BrowserAnimationsModule,
-    SharedModule,
     AuthModule,
+    CoreModule,
+    ProfileModule,
+    SharedModule,
+    TweetsModule,
     AppRoutingModule,
     
   ],

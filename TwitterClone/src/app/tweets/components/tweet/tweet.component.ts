@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TweetService } from 'src/app/core/services';
+import { ITweet } from 'src/app/core/models';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tweet',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TweetComponent implements OnInit {
 
-  constructor() { }
+  @Input() tweet: ITweet;
+  // constructor(private tweetService: TweetService) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
   }
 
+  delete() {
+
+  }
+
+  star() {
+
+  }
+  navigateTo(username: String) {
+    this.router.navigate(['../profile/',], { relativeTo: this.route });
+  }
 }

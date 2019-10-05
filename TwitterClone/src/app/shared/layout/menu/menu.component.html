@@ -1,18 +1,20 @@
-<mat-toolbar color="primary" fullpage>
-    <div class="toolbar__container" fullpage>
-        <div class="toolbar__left-links" fullpage>
-            <button mat-button>Home</button>
-            <div *ngIf="checkIfLoggedIn()">
-                <button mat-button>Login</button>
-                <button mat-button>Register</button>
+<nav>
+    <mat-toolbar color="primary" fullpage>
+        <div class="toolbar__container" fullpage>
+            <div class="toolbar__left-links" fullpage>
+                <a mat-button routerLink="">Home</a>
+                <div *ngIf="true">
+                    <a mat-button routerLink="/auth/login">Login</a>
+                    <a mat-button routerLink="/auth/register">Register</a>
+                </div>
+                <div *ngIf="currentUser">
+                    <a routerLink="/profile/:${currentUser.id}"><button mat-button>Profile</button></a>
+                    <a routerLink="/login"><button mat-button>Logout</button></a>
+                </div>
             </div>
-            <div *ngIf="checkIfLoggedIn()">
-                <button mat-button>Profile</button>
-                <button mat-button>Logout</button>
+            <div class="toolbar__right-links">
+                <button mat-button *ngFor="let lang of languages">{{ lang }}</button>
             </div>
         </div>
-        <div class="toolbar__right-links" fullpage>
-            <button mat-button *ngFor="let lang of languages">{{ lang }}</button>
-        </div>
-    </div>
-</mat-toolbar>
+    </mat-toolbar>
+</nav>

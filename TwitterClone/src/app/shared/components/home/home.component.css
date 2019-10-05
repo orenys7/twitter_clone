@@ -6,16 +6,6 @@ main {
     width: 95%;
 }
 
-main mat-card {
+main * {
     width: 80%;
-}
-
-.login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-mat-form-field {
-    width: 40%;
 }

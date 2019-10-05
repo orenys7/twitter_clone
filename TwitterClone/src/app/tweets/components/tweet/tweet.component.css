@@ -1,0 +1,44 @@
+mat-card {
+    width: 95%;
+}
+
+.tweet-container {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-img {
+    height: 100%;
+    width: 10%;
+}
+
+.tweet-details {
+    width: 90%;
+}
+
+.tweet-content {
+    display: block;
+    display: -webkit-box;
+    max-width: 280ch;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tweet-tools {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.tweet-tools__btn:hover {
+    cursor: pointer;
+}
+
+mat-button:hover {
+    cursor: pointer;
+    color: rgb(14, 105, 180);
+}

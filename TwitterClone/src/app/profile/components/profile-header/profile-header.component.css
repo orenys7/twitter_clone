@@ -5,15 +5,11 @@
 }
 
 .profile-img {
-    margin: 2em 2em 2em 2em;
+    margin: 2rem 2rem 2rem 2rem;
     width: 10%;
     height: 10%;
 }
 
 .profile-details {
-    margin: 2em 2em 2em 2em;
-}
-
-.profile-details * {
-    padding-bottom: 0.4em;
+    margin: 2rem 2rem 2rem 2rem;
 }

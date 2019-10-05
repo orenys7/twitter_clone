@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { IUser } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-menu',
@@ -7,16 +8,17 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
+  // constructor(private authService: AuthService) { }
+  
   languages: String[] = ['EN', 'ES'];
-
-  constructor(private authService: AuthService) { }
+  currentUser: IUser;
 
   ngOnInit() {
+    // this.authService.currentUser.subscribe(
+    //   (userData) => {
+    //     this.currentUser = userData;
+    //   }
+    // );
   }
-
-  checkIfLoggedIn(): boolean {
-    return this.authService.checkIfLoggedIn();
-  }
-
+  
 }

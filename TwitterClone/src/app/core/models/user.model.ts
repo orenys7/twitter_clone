@@ -1,7 +1,6 @@
 export interface IUser{
     username: String,
-    avatar: String,
-    createdAt: Date,
-    lastLogin: Date,
+    email: String,
+    image: String,
     token: String
 }

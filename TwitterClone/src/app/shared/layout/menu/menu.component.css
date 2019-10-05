@@ -1,8 +1,12 @@
+mat-toolbar {
+    width: 100%;
+}
+
 .toolbar__container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
+    width: 95%;
 }
 
 .toolbar__left-links {

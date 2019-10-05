@@ -1,7 +1,7 @@
 <mat-card>
     <form class="post-form" (ngSubmit)="saveTweet()">
         <mat-form-field class="post-form__content">
-            <textarea matInput placeholder="Write your tweet" id="textTweet" [(ngModel)]="textTweet" name="textTweet"></textarea>
+            <textarea matInput placeholder="Text here" id="textTweet" [(ngModel)]="textTweet" name="textTweet"></textarea>
             <div class="post-form__details">
                 <span>{{ textTweet.length }}/240 </span>
                 <button mat-raised-button type="submit">Post</button>
