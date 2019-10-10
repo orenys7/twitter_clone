@@ -13,14 +13,14 @@ export class TweetService {
 
   constructor(private apiService: ApiService) { }
 
-  get(): Observable<ITweet> {
+  get(): Observable<ITweet[]> {
     return this.apiService.get('/tweets')
-      .pipe(map(data => data.tweet));
+      .pipe(map(data => data.tweets));
   }
 
-  getUserTweets(userID): Observable<ITweet> {
-    return this.apiService.get(`members/:${userID}/tweets`)
-      .pipe(map(data => data.tweet));
+  getUserTweets(userID): Observable<ITweet[]> {
+    return this.apiService.get(`members/${userID}/tweets`)
+      .pipe(map(data => data.tweets));
   }
 
   post(tweet): Observable<ITweet> {
@@ -29,11 +29,11 @@ export class TweetService {
   }
 
   delete(id) {
-    return this.apiService.delete(`/tweets/:${id}`);
+    return this.apiService.delete(`/tweets/${id}`);
   }
 
   favorite(id): Observable<ITweet> {
-    return this.apiService.post(`/tweets/:${id}/star-toggle`);
+    return this.apiService.post(`/tweets/${id}/star-toggle`);
   }
 
   unfavorite(id): Observable<ITweet> {

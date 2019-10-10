@@ -11,7 +11,7 @@ export class ProfileService {
     private apiService: ApiService
   ) {}
 
-  get(id: string): Observable<IProfile> {
+  get(id: String): Observable<IProfile> {
     return this.apiService.get(`/members/:${id}`)
       .pipe(map((data: {profile: IProfile}) => data.profile));
   }

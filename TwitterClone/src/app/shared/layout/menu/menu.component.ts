@@ -8,17 +8,17 @@ import { IUser } from 'src/app/core/models/user.model';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  // constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
   
   languages: String[] = ['EN', 'ES'];
   currentUser: IUser;
 
   ngOnInit() {
-    // this.authService.currentUser.subscribe(
-    //   (userData) => {
-    //     this.currentUser = userData;
-    //   }
-    // );
+    this.authService.currentUser.subscribe(
+      (userData) => {
+        this.currentUser = userData;
+      }
+    );
   }
   
 }

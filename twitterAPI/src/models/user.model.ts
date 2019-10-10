@@ -7,7 +7,7 @@ import { devConfig } from '../config/env/dev';
 export interface IUser extends mongoose.Document {
     username: String;
     email: String;
-    password: String;
+    password: string;
     validPassword: (password: string) => boolean;
     generateJWT: () => string;
     setPassword: (password: string) => void;  
@@ -50,6 +50,8 @@ UserSchema.methods.setPassword = function (password: string) {
 }
 
 UserSchema.methods.validPassword = function(password: string) {
+    console.log('this.salt');
+    console.log(this.salt);
     const hash = CryptoJS.PBKDF2(password, this.salt, {
       keySize: 512 / 32,
       iterations: 1000
@@ -74,10 +76,18 @@ UserSchema.methods.toAuthJSON = function () {
         username: this.username,
         email: this.email,
         token: this.generateJWT(),
-        bio: this.bio,
         image: this.image
     };
 };
+
+UserSchema.methods.toProfileJSONFor = function(){
+    return {
+      username: this.username,
+      bio: this.bio,
+      image: this.image || 'TwitterClone\src\assets\icons\default-profile-picture.jpg',
+    };
+  };
+  
 UserSchema.plugin(uniqueValidator, { message: 'is already taken.' });
 
 export default mongoose.model<IUser>('User', UserSchema);

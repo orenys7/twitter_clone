@@ -1,12 +1,12 @@
 <mat-card>
     <div class="profile-container">
         <div class="profile-img">
-            <img src="assets/icons/default-profile-picture.jpg" alt="profile" width="90%;" height="90%;">
+            <img [src]="this.user.image" alt="profile" width="90%;" height="90%;">
         </div>
         <div class="profile-details">
-            <div class="mat-headline">Name</div>
-            <div class="mat-subheading-1">Registration date</div>
-            <div class="mat-small">Last login</div>
+            <div class="mat-headline">{{ this.user.username }}</div>
+            <div class="mat-subheading-1">Registration date: {{ this.user.createdAt }}</div>
+            <div class="mat-small">Last login: {{ this.user.lastLogin }}</div>
         </div>
     </div>
 </mat-card>

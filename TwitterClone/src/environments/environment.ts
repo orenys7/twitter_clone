@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  port: '3000',
-  api_url: 'https://localhost:3000/api'//`https://localhost:${this.port}/api`
+  port: '27017',
+  api_url: 'http://localhost:27017/api'//`https://localhost:${this.port}/api`
 
 };
 

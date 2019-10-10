@@ -5,6 +5,6 @@ export interface ITweet{
     author: String,
     content: String,
     createdAt: String,
-    startCounter: Number,
+    startCounter: number,
     starsUsers: String[]
 }

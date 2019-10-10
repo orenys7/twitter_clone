@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TweetService } from 'src/app/core/services/tweet.service';
-import { ITweet } from 'src/app/core/models';
+import { ITweet, IProfile } from 'src/app/core/models';
 
 @Component({
   selector: 'app-tweets-list',
@@ -9,8 +9,7 @@ import { ITweet } from 'src/app/core/models';
 })
 export class TweetsListComponent implements OnInit {
 
-  // constructor(private tweetService: TweetService) { }
-
+  @Input() user: IProfile;
   tweets: ITweet[] = [
     {
       author: "Oren",
@@ -38,7 +37,22 @@ export class TweetsListComponent implements OnInit {
     }
   ];
 
+  constructor(private tweetService: TweetService){}
+
   ngOnInit() {
+    // if(this.user === undefined){
+    //   this.tweetService.get().subscribe(
+    //     (tweets: ITweet[]) => {
+    //       this.tweets = tweets;
+    //     }
+    //   );
+    // }else{
+    //   this.tweetService.getUserTweets(this.user.username).subscribe(
+    //     (tweets: ITweet[]) => {
+    //       this.tweets = tweets;
+    //     }
+    //   );
+    // }
   }
 
 }

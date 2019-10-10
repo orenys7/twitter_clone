@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IUser } from '../models/user.model';
+import { IUser, LoginResp } from '../models';
 import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { ApiService } from './api.service';
@@ -39,11 +39,11 @@ export class AuthService {
     }
   }
 
-  setAuth(user: IUser) {
+  setAuth(resp: LoginResp) {
     // Save JWT sent from server in localstorage
-    this.jwtService.saveToken(user.token);
+    this.jwtService.saveToken(resp.token);
     // Set current user data into observable
-    this.currentUserSubject.next(user);
+    this.currentUserSubject.next(resp.user);
     // Set isAuthenticated to true
     this.isAuthenticatedSubject.next(true);
   }
@@ -57,12 +57,13 @@ export class AuthService {
     this.isAuthenticatedSubject.next(false);
   }
 
-  attemptAuth(type, credentials): Observable<IUser> {
-    const route = (type === 'login') ? '/login' : '';
-    return this.apiService.post('/users' + route, {user: credentials})
+  attemptAuth(type, credentials): Observable<LoginResp> {
+    const route = (type === 'login') ? '/login' : '/register';
+    return this.apiService.post('/auth' + route, {user: credentials})
       .pipe(map(
       data => {
-        this.setAuth(data.user);
+        console.log(data);
+        this.setAuth(data);
         return data;
       }
     ));

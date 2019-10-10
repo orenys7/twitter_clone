@@ -13,8 +13,8 @@
         </div>
     </div>
     <div class="tweet-tools">
-        <img class="tweet-tools__btn" src="assets/icons/delete.svg" alt="delete" (click)="delete()" />
-        <img class="tweet-tools__btn" src="assets/icons/reply.svg" alt="reply" />
+        <img class="tweet-tools__btn" *ngIf="this.canDeleted" src="assets/icons/delete.svg" alt="delete" (click)="delete()" />
+        <img class="tweet-tools__btn" src="assets/icons/reply.svg" alt="reply" (click)="reply()" />
         <span> {{tweet.startCounter}} </span>
         <img class="tweet-tools__btn" src="assets/icons/star.svg" alt="star" (click)="star()" />
     </div>

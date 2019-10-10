@@ -4,15 +4,15 @@ import { Request, Response, NextFunction } from 'express';
 // import path from 'path';
 // import morgan from 'morgan';
 import mongoose from 'mongoose';
-import { restRouter } from './api';
+import router from './routes/index';
 import { devConfig } from './config/env/dev';
 import { setGlobalMiddleware } from './api/middlewares/global.middleware';
 
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb+srv://admin:admin@twitterclone-zrea5.azure.mongodb.net/admin?retryWrites=true&w=majority`, //mongodb://localhost/${devConfig.database}
-{ useNewUrlParser: true, useUnifiedTopology: true },
+mongoose.connect('mongodb+srv://admin:admin@twitterclone-zrea5.azure.mongodb.net/test?retryWrites=true&w=majority',
+  { useNewUrlParser: true, useUnifiedTopology: true },
   () => console.log('connected to DB')
 );
 const app = express();
@@ -22,7 +22,7 @@ app.set('port', port);
 // set midllewares
 setGlobalMiddleware(app);
 
-app.use('/api',restRouter);
+app.use('', router);
 app.use((req: Request, res: Response, next: NextFunction) => {
   const error = new Error('Not found');
   error.message = 'Invalid route';
