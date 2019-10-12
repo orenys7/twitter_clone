@@ -50,8 +50,6 @@ UserSchema.methods.setPassword = function (password: string) {
 }
 
 UserSchema.methods.validPassword = function(password: string) {
-    console.log('this.salt');
-    console.log(this.salt);
     const hash = CryptoJS.PBKDF2(password, this.salt, {
       keySize: 512 / 32,
       iterations: 1000

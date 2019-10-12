@@ -1,10 +1,22 @@
 import { IProfile } from './profile.model';
 
 export interface ITweet{
-    id: String,
-    author: String,
-    content: String,
-    createdAt: String,
+    _id: string,
+    authorID: string
+    author: string,
+    authorAvatarUrl: string,
+    content: string,
+    createdAt: string,
     startCounter: number,
-    starsUsers: String[]
+    starsUsers: string[]
+}
+
+export interface IPost{
+    authorID: string
+    author: string,
+    authorAvatarUrl: string,
+    content: string,
+    createdAt: string,
+    startCounter: number,
+    starsUsers: string[]
 }

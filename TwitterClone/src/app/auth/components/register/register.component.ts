@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
 
   model = new Model();
   registerForm: FormGroup;
+  email = new FormControl('', [Validators.required, Validators.email]);
   errors: {};
 
   constructor(
@@ -37,7 +38,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  email = new FormControl('', [Validators.required, Validators.email]);
 
   get emailControl(): AbstractControl {
     return this.registerForm.get('email');
@@ -52,7 +52,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registerForm.value);
     const credentials = this.registerForm.value;
     this.authService.attemptAuth('register', credentials).subscribe(
       data => {
@@ -62,5 +61,6 @@ export class RegisterComponent implements OnInit {
       err => {
         this.errors = err;
       }
-    );  }
+    );  
+  }
 }

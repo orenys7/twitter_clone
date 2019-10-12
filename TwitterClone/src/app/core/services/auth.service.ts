@@ -12,7 +12,7 @@ import {  JwtService } from './jwt.service';
 export class AuthService {
 
   private currentUserSubject = new BehaviorSubject<IUser>({} as IUser);
-  public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
+  public currentUser = this.currentUserSubject.asObservable(); //.pipe(distinctUntilChanged())
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
@@ -64,6 +64,7 @@ export class AuthService {
       data => {
         console.log(data);
         this.setAuth(data);
+        console.log(this.currentUser);
         return data;
       }
     ));

@@ -5,7 +5,7 @@ import { AngularMaterialModule } from './layout/material/material.module';
 import { MenuComponent } from './layout/menu/menu.component';
 import { FullpageDirective } from './directives/fullpage.directive';
 import { PostComponent } from './components/post/post.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { TweetsModule } from '../tweets/tweets.module';
 
@@ -22,6 +22,7 @@ import { TweetsModule } from '../tweets/tweets.module';
       SharedRoutingModule,
       TweetsModule,
       FormsModule,
+      ReactiveFormsModule,
     ],
     exports: [
         MenuComponent,

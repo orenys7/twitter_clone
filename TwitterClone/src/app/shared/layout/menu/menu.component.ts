@@ -20,5 +20,9 @@ export class MenuComponent implements OnInit {
       }
     );
   }
+
+  logout(){
+    this.authService.purgeAuth();
+  }
   
 }

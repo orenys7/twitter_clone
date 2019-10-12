@@ -1,3 +1,8 @@
 <main>
-    <app-tweet *ngFor="let item of tweets" [tweet]="item"></app-tweet>
+    <!-- <div *ngIf="tweets === undefined; else noTweetsTemplate"> -->
+    <app-tweet *ngFor="let item of tweets" [tweet]="item" [user]="currentUser"></app-tweet>
+    <!-- </div> -->
+    <!-- <ng-template #noTweetsTemplate>
+        <p>No Tweets :( </p>
+    </ng-template> -->
 </main>

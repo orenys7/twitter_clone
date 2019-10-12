@@ -2,7 +2,8 @@ import {
 	BAD_REQUEST,
 	INTERNAL_SERVER_ERROR,
 	UNAUTHORIZED,
-    OK
+    OK,
+    CONFLICT
 } from 'http-status-codes';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
@@ -18,9 +19,11 @@ export default {
                 console.log(error);
                 return res.status(BAD_REQUEST);
             }
-            // needs another if with duplicated user details -> return 409 status code
+            const existedUser = User.findOne(value.username);
+            if(existedUser) return res.status(CONFLICT);
             const user = await User.create(value);
-            return res.status(201).json({ success: true, message: user });
+            const token = jwt.sign({ user: user }, devConfig.secret, {expiresIn: '1d' });
+            return res.status(201).json({ success: true, token, user });
         }
         catch(err){
             console.error(err);
@@ -30,7 +33,7 @@ export default {
     async login (req: Request, res: Response) {
         try{
             const { error, value } = await authService.validateLoginSchema(req.body.user);
-            const user = await User.findOne({ email: value.email });
+            const user = await authService.findByEmail(value);
             if(!user){
                 return res.status(BAD_REQUEST).json({ err: 'Invalid email or password' });
             }

@@ -10,62 +10,76 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class TweetComponent implements OnInit {
 
-  // @Input() tweet: ITweet;
+  @Input() tweet: ITweet;
+  @Input() user: IUser;
 
-  tweet: ITweet;
-  currentUser: IUser;
+  // currentUser: IUser;
   canDeleted: boolean;
   favorited: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
     private tweetService: TweetService
   ) { }
 
   ngOnInit() {
-    this.route.data.subscribe(
-      (data: { tweet: ITweet }) => {
-        this.tweet = data.tweet;
-      }
-    );
+    // this.route.data.subscribe(
+    //   (data: { tweet: ITweet }) => {
+    //     this.tweet = data.tweet;
+    //     console.log('Tweet-Component');
+    //     console.log(this.tweet);
+    //   }
+    // );
+    console.log('Tweet-Component');
 
-    this.authService.currentUser.subscribe(
-      (userData: IUser) => {
-        this.currentUser = userData;
-        this.canDeleted = (this.currentUser.username === this.tweet.author);
-        if(this.tweet.starsUsers.indexOf(this.currentUser.username) !== -1){
+  
+        this.canDeleted = (this.user.username === this.tweet.author);
+        if (this.tweet.starsUsers.length === 0) {
+          this.favorited = false;
+        }
+        else if (this.tweet.starsUsers.indexOf(this.user.username) !== -1) {
           this.favorited = true;
         }
       }
-    );
-  }
+    // this.authService.currentUser.subscribe(
+    //   (userData: IUser) => {
+    //     this.currentUser = userData;
+    //     this.canDeleted = (this.currentUser.username === this.tweet.author);
+    //     if (this.tweet.starsUsers.length === 0) {
+    //       this.favorited = false;
+    //     }
+    //     else if (this.tweet.starsUsers.indexOf(this.currentUser.username) !== -1) {
+    //       this.favorited = true;
+    //     }
+    //   }
+    // );
 
   delete() {
-    this.tweetService.delete(this.tweet.id).subscribe(
+    console.log(this.tweet._id);
+    this.tweetService.delete(this.tweet._id).subscribe(
       success => {
-        this.router.navigateByUrl('/');
+        
       }
     );
   }
 
   star() {
-    if(this.favorited === false){
+    if (this.favorited === false) {
       this.tweet.startCounter++;
-      this.tweet.starsUsers.push(this.currentUser.username);
-    }else{
+      this.tweet.starsUsers.push(this.user.username);
+    } else {
       this.tweet.startCounter--;
-      this.tweet.starsUsers.splice(this.tweet.starsUsers.indexOf(this.currentUser.username),1);
+      this.tweet.starsUsers.splice(this.tweet.starsUsers.indexOf(this.user.username), 1);
     }
     this.favorited = (!this.favorited);
   }
 
   navigateTo(username: String) {
-    this.router.navigate(['../profile/:username', this.tweet.author], { relativeTo: this.route });
+    this.router.navigate(['../profile/:id', this.tweet.author], { relativeTo: this.route });
   }
 
-  reply(){
+  reply() {
     //open pop-up component of post
   }
 }

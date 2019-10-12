@@ -1,9 +1,9 @@
 export interface IUser {
-    id: String,
-    username: String,
-    email: String,
-    image: String,
-    token: String //
+    _id: string,
+    username: string,
+    email: string,
+    image: string,
+    token: string
 }
 
 export interface LoginResp {

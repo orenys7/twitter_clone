@@ -25,7 +25,13 @@ export class TweetService {
 
   post(tweet): Observable<ITweet> {
     return this.apiService.post('/tweets', { tweet: tweet })
-      .pipe(map(data => data.tweet));
+    .pipe(map(
+      data => {
+        console.log(data);
+        console.log(data.tweet);
+        return data.tweet;
+      }
+    ));
   }
 
   delete(id) {

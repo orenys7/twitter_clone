@@ -1,7 +1,7 @@
 <mat-card>
     <div class="tweet-container">
         <div class="profile-img">
-            <img src="assets/icons/default-profile-picture.jpg" alt="profile" width="90%;" height="90%;">
+            <img [src]="tweet.authorAvatarUrl" alt="profile" width="90%;" height="90%;">
         </div>
         <div class="tweet-details">
             <mat-button (click)="navigateTo(tweet.author)">{{tweet.author}}</mat-button>
@@ -13,10 +13,10 @@
         </div>
     </div>
     <div class="tweet-tools">
-        <img class="tweet-tools__btn" *ngIf="this.canDeleted" src="assets/icons/delete.svg" alt="delete" (click)="delete()" />
-        <img class="tweet-tools__btn" src="assets/icons/reply.svg" alt="reply" (click)="reply()" />
-        <span> {{tweet.startCounter}} </span>
-        <img class="tweet-tools__btn" src="assets/icons/star.svg" alt="star" (click)="star()" />
+        <a routerLink="/home"><img class="tweet-tools__btn" *ngIf="this.canDeleted" src="assets/icons/delete.svg" alt="delete" (click)="delete()" /></a>
+        <img class="tweet-tools__btn" *ngIf="this.canDeleted" src="assets/icons/reply.svg" alt="reply" (click)="reply()" />
+        <span *ngIf="this.canDeleted"> {{tweet.startCounter}} </span>
+        <img class="tweet-tools__btn" *ngIf="this.canDeleted" src="assets/icons/star.svg" alt="star" (click)="star()" />
     </div>
 </mat-card>
 <br>

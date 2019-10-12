@@ -3,13 +3,13 @@
         <div class="toolbar__container" fullpage>
             <div class="toolbar__left-links" fullpage>
                 <a mat-button routerLink="">Home</a>
-                <div *ngIf="true">
+                <div *ngIf="!currentUser._id">
                     <a mat-button routerLink="/auth/login">Login</a>
                     <a mat-button routerLink="/auth/register">Register</a>
                 </div>
-                <div *ngIf="currentUser">
-                    <a routerLink="/profile/:${currentUser.id}"><button mat-button>Profile</button></a>
-                    <a routerLink="/login"><button mat-button>Logout</button></a>
+                <div *ngIf="currentUser._id">
+                    <a routerLink="/profile/:${currentUser._id}"><button mat-button>Profile</button></a>
+                    <a routerLink="/login" (click)="logout()"><button mat-button>Logout</button></a>
                 </div>
             </div>
             <div class="toolbar__right-links">

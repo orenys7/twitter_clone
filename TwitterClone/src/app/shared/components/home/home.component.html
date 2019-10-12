@@ -1,6 +1,6 @@
 <main>
     <div>
-        <app-post></app-post>
+        <app-post *ngIf="this.currentUser._id !== undefined"></app-post>
     </div>
     <br>
     <app-tweets-list></app-tweets-list>
