@@ -19,7 +19,7 @@ export class TweetService {
   }
 
   getUserTweets(userID): Observable<ITweet[]> {
-    return this.apiService.get(`members/${userID}/tweets`)
+    return this.apiService.get(`/members/${userID}/tweets`)
       .pipe(map(data => data.tweets));
   }
 
@@ -38,11 +38,11 @@ export class TweetService {
     return this.apiService.delete(`/tweets/${id}`);
   }
 
-  favorite(id): Observable<ITweet> {
+  favorite(id): Observable<string[]> {
     return this.apiService.post(`/tweets/${id}/star-toggle`);
   }
 
-  unfavorite(id): Observable<ITweet> {
+  unfavorite(id): Observable<string[]> {
     return this.apiService.delete(`/tweets/:${id}/star-toggle`);
   }
 }

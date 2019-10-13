@@ -12,6 +12,7 @@ export class ProfileHeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

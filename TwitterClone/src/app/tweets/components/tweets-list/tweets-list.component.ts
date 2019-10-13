@@ -11,8 +11,10 @@ import { AuthService } from 'src/app/core/services';
 })
 export class TweetsListComponent implements OnInit {
 
+  @Input() profile: IProfile;
   tweets: ITweet[];
   currentUser: IUser;
+  id: string = null;
   
   constructor(
     private route: ActivatedRoute,
@@ -22,16 +24,33 @@ export class TweetsListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
     this.authService.currentUser.subscribe(
       (userData: IUser) => {
         this.currentUser = userData;
       }
     );
-    this.tweetService.get().subscribe(
-      (tweets: ITweet[]) => {
-        this.tweets = tweets;
+    if(!this.id){
+      this.tweetService.get().subscribe(
+        (tweets: ITweet[]) => {
+          this.tweets = tweets;
+        }
+      );  
+    } else{
+      if(!this.currentUser){
+        this.tweetService.getUserTweets(this.profile._id).subscribe(
+          (tweets: ITweet[]) => {
+            this.tweets = tweets;
+          }
+        );  
+      } else {
+        this.tweetService.getUserTweets(this.currentUser._id).subscribe(
+          (tweets: ITweet[]) => {
+            this.tweets = tweets;
+          }
+        );  
       }
-    );
+    }
     // }else{
     //   this.tweetService.getUserTweets(this.user.username).subscribe(
     //     (tweets: ITweet[]) => {

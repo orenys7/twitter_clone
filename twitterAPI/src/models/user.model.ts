@@ -14,6 +14,8 @@ export interface IUser extends mongoose.Document {
     image: String;
     hash: String;
     salt: String;
+    createdAt: String;
+    lastLogin: String;
 }
 
 const UserSchema = new mongoose.Schema({
@@ -38,6 +40,8 @@ const UserSchema = new mongoose.Schema({
         required: true,
     },
     image: String,
+    createdAt: String,
+    lastLogin: String,
     hash: String,
     salt: String
 }, { timestamps: true });

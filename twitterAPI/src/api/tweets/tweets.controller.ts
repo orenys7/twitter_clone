@@ -43,10 +43,18 @@ export default {
 
     async starToggle(req: Request, res: Response) {
         try {
-            const { error, value } = await tweetsService.validateTweetSchema(req.body.tweet);
+            const tweetToStar = {
+                _id: req.params.id
+            };
+            // if (!req.isAuthenticated()) return res.status(UNAUTHORIZED);
+            const { error, value } = await tweetsService.validateTweetIDSchema(tweetToStar);
             if (error && error.details) {
                 console.log(error);
                 return res.status(BAD_REQUEST);
+            }
+            const tweet = await Tweet.findById(value);
+            if (!tweet) {
+                return res.status(NOT_FOUND).json(error);
             }
         }
         catch (err) {
@@ -57,7 +65,6 @@ export default {
 
     async deleteTweetById(req: Request, res: Response) {
         try {
-            console.log(req.params.id);
             // if (!req.isAuthenticated()) {
             //     console.log('not authenticated');
             //     return res.status(UNAUTHORIZED);
@@ -68,19 +75,17 @@ export default {
             const { error, value } = await tweetsService.validateTweetIDSchema(tweetToDelete);
             if (error && error.details) {
                 console.log(error);
-                return res.status(BAD_REQUEST);
+                return res.status(BAD_REQUEST).json(error);
             }
-            console.log(value);
             const tweet = await Tweet.findById(value);
             if (!tweet) {
-                console.log('Not Found');
-                return res.status(NOT_FOUND);
+                return res.status(NOT_FOUND).json(error);
             }
             // if (value.authorID !== tweet.authorID) {
             //     console.log('Not the Owner');
             //     return res.status(FORBIDDEN);
             // }
-            await Tweet.deleteOne({"_id": tweet._id });
+            await Tweet.deleteOne({ "_id": tweet._id });
             return res.status(NO_CONTENT).json({ success: true });
         }
         catch (err) {

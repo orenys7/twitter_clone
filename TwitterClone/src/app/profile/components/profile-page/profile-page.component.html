@@ -1,5 +1,5 @@
-<app-profile-header [user]="this.user"></app-profile-header>
+<app-profile-header [user]="this.profile"></app-profile-header>
 <main>
     <br>
-    <app-tweets-list></app-tweets-list>
+    <app-tweets-list [profile]="this.profile"></app-tweets-list>
 </main>

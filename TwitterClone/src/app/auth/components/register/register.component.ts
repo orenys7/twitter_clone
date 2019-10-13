@@ -51,8 +51,18 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('password');
   }
 
+  get imageControl(): AbstractControl {
+    return this.registerForm.get('image');
+  }
+
   onSubmit() {
     const credentials = this.registerForm.value;
+    console.log(this.imageControl.value);
+    if(this.imageControl.value === ''){
+      credentials.image = 'assets/icons/default-profile-picture.jpg';
+    }
+    credentials.createdAt = new Date().toLocaleDateString();
+    credentials.lastLogin = new Date().toLocaleDateString();
     this.authService.attemptAuth('register', credentials).subscribe(
       data => {
         console.log(data);

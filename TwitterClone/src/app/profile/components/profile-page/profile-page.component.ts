@@ -11,29 +11,28 @@ import { tap } from 'rxjs/operators';
 })
 export class ProfilePageComponent implements OnInit {
 
-  user: IProfile;
+  profile: IProfile;
   userTweets: ITweet[];
   path: String;
-  username: String;
+  id: String;
 
   constructor(
     private profileService: ProfileService,
     private route: ActivatedRoute,
-    private tweetService: TweetService
+    // private tweetService: TweetService
   ) { }
 
 
   ngOnInit() {
-    this.username = this.route.snapshot.paramMap.get('username');
-    this.profileService.get(this.username).pipe(tap(
-      (userProfile: IProfile) => {
-        this.user = userProfile;
-      }
-    ));
-    this.tweetService.getUserTweets(this.user.username).subscribe(
-      (tweets: ITweet[]) => {
-        this.userTweets = tweets;
-      }
+    this.id = this.route.snapshot.paramMap.get('id');
+    console.log(this.id)
+    this.profileService.get(this.id).subscribe(
+      profile => this.profile = profile
     );
+    // this.tweetService.getUserTweets(this.user.username).subscribe(
+    //   (tweets: ITweet[]) => {
+    //     this.userTweets = tweets;
+    //   }
+    // );
 }
 }

@@ -41,4 +41,8 @@ const TweetSchema = new mongoose.Schema({
 
 TweetSchema.plugin(uniqueValidator, { message: 'is already taken.' });
 
+TweetSchema.statics.findByAuthorID = function(authorID: string, cb: any) {
+    return this.find({ name: new RegExp(authorID, 'i') }, cb);
+}
+
 export default mongoose.model<ITweet>('Tweet', TweetSchema);

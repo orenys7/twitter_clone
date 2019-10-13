@@ -17,10 +17,10 @@ export default {
             const { error, value } = await authService.validateRegisterSchema(req.body.user);
             if(error && error.details){
                 console.log(error);
-                return res.status(BAD_REQUEST);
+                return res.status(BAD_REQUEST).json(error);
             }
-            const existedUser = User.findOne(value.username);
-            if(existedUser) return res.status(CONFLICT);
+            const duplicated = await authService.findDuplicated(value);
+            if(duplicated) return res.status(CONFLICT).json(error);
             const user = await User.create(value);
             const token = jwt.sign({ user: user }, devConfig.secret, {expiresIn: '1d' });
             return res.status(201).json({ success: true, token, user });

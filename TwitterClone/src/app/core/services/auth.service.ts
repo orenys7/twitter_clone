@@ -23,21 +23,21 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  // Verify JWT in localstorage with server & load user's info.
-  // This runs once on application startup.
-  populate() {
-    // If JWT detected, attempt to get & store user's info
-    if (this.jwtService.getToken()) {
-      this.apiService.get('/user')
-      .subscribe(
-        data => this.setAuth(data.user),
-        err => this.purgeAuth()
-      );
-    } else {
-      // Remove any potential remnants of previous auth states
-      this.purgeAuth();
-    }
-  }
+  // // Verify JWT in localstorage with server & load user's info.
+  // // This runs once on application startup.
+  // populate() {
+  //   // If JWT detected, attempt to get & store user's info
+  //   if (this.jwtService.getToken()) {
+  //     this.apiService.get('/user')
+  //     .subscribe(
+  //       data => this.setAuth(data.user),
+  //       err => this.purgeAuth()
+  //     );
+  //   } else {
+  //     // Remove any potential remnants of previous auth states
+  //     this.purgeAuth();
+  //   }
+  // }
 
   setAuth(resp: LoginResp) {
     // Save JWT sent from server in localstorage

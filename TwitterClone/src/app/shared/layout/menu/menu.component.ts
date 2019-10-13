@@ -17,6 +17,7 @@ export class MenuComponent implements OnInit {
     this.authService.currentUser.subscribe(
       (userData) => {
         this.currentUser = userData;
+        // console.log(this.currentUser);
       }
     );
   }
