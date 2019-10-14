@@ -1,7 +1,7 @@
 <main>
     <div>
-        <app-post *ngIf="this.currentUser._id !== undefined"></app-post>
+        <app-post *ngIf="this.currentUser._id !== undefined" (postClickedEE)="tweetListComponent.refresh();"></app-post>
     </div>
     <br>
-    <app-tweets-list></app-tweets-list>
+    <app-tweets-list #tweetListComponent></app-tweets-list>
 </main>

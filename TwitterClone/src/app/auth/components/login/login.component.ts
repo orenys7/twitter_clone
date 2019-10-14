@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { JwtService } from 'src/app/core/services';
 import { LoginResp } from 'src/app/core/models';
+import { Subscription } from 'rxjs';
 
 class Model {
   email = '';
@@ -16,11 +17,12 @@ class Model {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription [] = [];
   model = new Model();
   loginForm: FormGroup;
   errors = { errors: {} };
+
 
   constructor(
     private fb: FormBuilder,
@@ -49,7 +51,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const credentials = this.loginForm.value;
-    this.authService.attemptAuth('login', credentials).subscribe(
+    this.subscriptions.push(this.authService.attemptAuth('login', credentials).subscribe(
       data => {
         console.log(data);
         this.router.navigateByUrl('/');
@@ -57,6 +59,11 @@ export class LoginComponent implements OnInit {
       err => {
         this.errors = err;
       }
-    );
+    ));
+  }
+
+  
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { TweetService, AuthService } from 'src/app/core/services';
 import { FormControl, Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IUser, ITweet, IPost } from 'src/app/core/models';
+import { Subscription } from 'rxjs';
 
 class Model {
   textTweet = '';
@@ -12,7 +13,9 @@ class Model {
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit{
+export class PostComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription[] = [];
+  @Output() postClickedEE = new EventEmitter();
 
   model = new Model();
   postForm: FormGroup;
@@ -25,8 +28,8 @@ export class PostComponent implements OnInit{
     private fb: FormBuilder,
     private authService: AuthService,
     private tweetService: TweetService,
-    private route: ActivatedRoute,
-    private router: Router,
+    // private route: ActivatedRoute,
+    // private router: Router,
   ) {
     this.postForm = fb.group({
       textTweet: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(240)]]
@@ -34,12 +37,12 @@ export class PostComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.authService.currentUser.subscribe(
+    this.subscriptions.push(this.authService.currentUser.subscribe(
       userData => {
         console.log(userData);
         this.currentUser = userData;
       }
-    );
+    ));
   }
 
   get tweetControl(): AbstractControl {
@@ -69,17 +72,19 @@ export class PostComponent implements OnInit{
   saveTweet() {
     const post = this.setPostDetails();
     this.textPost = '';
-    console.log('post');
-    console.log(post);
-    this.tweetService.post(post).subscribe(
+    this.subscriptions.push(this.tweetService.post(post).subscribe(
       data => {
         console.log(data);
-        this.router.navigate([''], { relativeTo: this.route });
+        this.postClickedEE.emit(true);
       },
       err => {
         this.errors = err;
       }
-    );
-    // this.postForm.reset();
+    ));
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+  
 }

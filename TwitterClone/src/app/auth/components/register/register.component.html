@@ -1,7 +1,7 @@
 <main>
     <mat-card>
         <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
-            <div class="mat-display-1">Register</div>
+            <div class="mat-display-1" (click)="display()">Register</div>
             <mat-form-field>
                 <input matInput placeholder="Email" formControlName="email" required>
             </mat-form-field>
@@ -12,10 +12,10 @@
                 <input matInput placeholder="Password" type="password" formControlName="password" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Image Path" formControlName="image" formControlName="image" required>
+                <input matInput placeholder="Image Path" formControlName="image">
             </mat-form-field>
             <div>
-                <button mat-raised-button type="submit">Register</button>
+                <button mat-raised-button type="submit" [disabled]="!registerForm.valid">Register</button>
             </div>
         </form>
     </mat-card>

@@ -8,8 +8,8 @@
                     <a mat-button routerLink="/auth/register">Register</a>
                 </div>
                 <div *ngIf="currentUser._id">
-                    <a [routerLink]="['/profile/', currentUser._id]"><button mat-button>Profile</button></a>
-                    <a routerLink="/login" (click)="logout()"><button mat-button>Logout</button></a>
+                    <a mat-button [routerLink]="['/profile/', currentUser._id]">Profile</a>
+                    <a mat-button routerLink="/login" (click)="logout()">Logout</a>
                 </div>
             </div>
             <div class="toolbar__right-links">
