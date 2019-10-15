@@ -21,6 +21,8 @@ export default {
             }
             const duplicated = await authService.findDuplicated(value);
             if(duplicated) return res.status(CONFLICT).json(error);
+            await authService.completeMissingDetails(value);
+            console.log(value);
             const user = await User.create(value);
             const token = jwt.sign({ user: user }, devConfig.secret, {expiresIn: '1d' });
             return res.status(201).json({ success: true, token, user });
@@ -33,15 +35,20 @@ export default {
     async login (req: Request, res: Response) {
         try{
             const { error, value } = await authService.validateLoginSchema(req.body.user);
+            if(error && error.details){
+                console.log(error);
+                return res.status(BAD_REQUEST).json(error);
+            }
             const user = await authService.findByEmail(value);
             if(!user){
-                return res.status(BAD_REQUEST).json({ err: 'Invalid email or password' });
+                return res.status(BAD_REQUEST).json({ error: 'Invalid email or password' });
             }
             await user.setPassword(user.password);
             const matched = await user.validPassword(value.password);
             if(!matched){
-                return res.status(UNAUTHORIZED).json({ err: 'Invalid credentials' });
+                return res.status(BAD_REQUEST).json({ error: 'Invalid credentials' });
             }
+            authService.setUpdatedDate(user);
             const token = jwt.sign({ user: user }, devConfig.secret, {expiresIn: '1d' });
             return res.status(OK).json({success: true, token, user });
         }

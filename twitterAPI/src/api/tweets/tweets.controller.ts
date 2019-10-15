@@ -10,6 +10,8 @@ import {
 import { Request, Response } from 'express';
 import tweetsService from './tweets.service';
 import Tweet from '../../models/tweet.model';
+import passport = require('passport');
+import { IVerifyOptions } from 'passport-local';
 // import { devConfig } from '../../config/env/dev';
 
 export default {
@@ -26,6 +28,8 @@ export default {
 
     async postTweet(req: Request, res: Response) {
         try {
+            console.log(req.isAuthenticated());
+            // console.log(req.headers.authorization);
             // if (!req.isAuthenticated()) return res.status(UNAUTHORIZED);
             const { error, value } = await tweetsService.validatePostTweetSchema(req.body.tweet);
             if (error && error.details) {

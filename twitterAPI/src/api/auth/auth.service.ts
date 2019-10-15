@@ -6,10 +6,10 @@ export default {
         const schema = Joi.object().keys({
             email: Joi.string().email().required(),
             username: Joi.string().min(4).required(),
-            password: Joi.string().min(8).regex(new RegExp('[A-Z]+')).required(),
+            password: Joi.string().min(8).regex(new RegExp('[a-zA-Z0-9]*[A-Z]+[a-zA-Z0-9]*')).required(),
             image: Joi.string(),
-            createdAt: Joi.string(),
-            lastLogin: Joi.string()
+            // createdAt: Joi.string(),
+            // lastLogin: Joi.string()
         });
         const { error, value } = Joi.validate(body, schema);
         if (error && error.details) {
@@ -20,7 +20,7 @@ export default {
     async  validateLoginSchema(body: any) {
         const schema = Joi.object().keys({
             email: Joi.string().email().required(),
-            password: Joi.string().min(8).regex(new RegExp('[A-Z]+')).required()
+            password: Joi.string().min(8).regex(new RegExp('[a-zA-Z0-9]*[A-Z]+[a-zA-Z0-9]*')).required()
         });
         const { error, value } = Joi.validate(body, schema);
         if (error && error.details) {
@@ -33,9 +33,19 @@ export default {
     },
 
     async findDuplicated (value: IUser) {
-        const byUsername = await User.findOne({'username': value.username}).exec();
         const byEmail = await User.findOne({'email': value.email}).exec();
+        const byUsername = await User.findOne({'username': value.username}).exec();
         if(byEmail || byUsername) return true;
         return false;
+    },
+
+    async completeMissingDetails (value: IUser) {
+        value.createdAt = new Date().toLocaleDateString();
+        value.lastLogin = new Date().toLocaleDateString();
+        return value;
+    },
+
+    setUpdatedDate(user: IUser){
+        user.lastLogin = new Date().toLocaleDateString();
     }
 };

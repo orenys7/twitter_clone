@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription [] = [];
   model = new Model();
   loginForm: FormGroup;
-  errors = { errors: {} };
+  errors = { };
 
 
   constructor(
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('[A-Z]+')]]
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('[a-zA-Z0-9]*[A-Z]+[a-zA-Z0-9]*')]]
     });
   }
 
@@ -56,13 +56,17 @@ export class LoginComponent implements OnInit, OnDestroy {
         console.log(data);
         this.router.navigateByUrl('/');
       },
-      err => {
-        this.errors = err;
+      error => {
+        this.errors = error;
       }
     ));
   }
 
-  
+  hasError(controlName: string){
+    const control = this.loginForm.controls[controlName];
+    return (control.errors && (control.dirty || control.touched))
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

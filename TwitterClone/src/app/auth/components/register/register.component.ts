@@ -56,28 +56,28 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.registerForm.get('image');
   }
 
-  display(){
-    console.log(this.registerForm);
-  }
-
   onSubmit() {
     const credentials = this.registerForm.value;
     if(this.imageControl.value === ''){
       credentials.image = 'assets/icons/default-profile-picture.jpg';
     }
-    credentials.createdAt = new Date().toLocaleDateString();
-    credentials.lastLogin = new Date().toLocaleDateString();
     this.subscriptions.push(this.authService.attemptAuth('register', credentials).subscribe(
       data => {
         console.log(data);
         this.router.navigateByUrl('/');
       },
-      err => {
-        this.errors = err;
+      error => {
+        console.log(error);
+        this.errors = error;
       }
     ));  
   }
 
+  hasError(controlName: string){
+    const control = this.registerForm.controls[controlName];
+    return (control.errors && (control.dirty || control.touched))
+  }
+  
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

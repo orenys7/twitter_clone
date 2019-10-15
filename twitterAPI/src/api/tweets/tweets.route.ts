@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import TweetController from './tweets.controller';
+import { authenticate, authorize } from '../auth/auth.middleware';
+import passport = require('passport');
 
 const router = Router();
 
