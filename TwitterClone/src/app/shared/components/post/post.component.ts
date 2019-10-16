@@ -63,7 +63,7 @@ export class PostComponent implements OnInit, OnDestroy {
       authorAvatarUrl: this.currentUser.image,
       content: this.tweetControl.value,
       createdAt: new Date().toLocaleDateString(),
-      startCounter: 0,
+      starCounter: 0,
       starsUsers: []
     };
     return post;
@@ -73,8 +73,8 @@ export class PostComponent implements OnInit, OnDestroy {
     const post = this.setPostDetails();
     this.textPost = '';
     this.subscriptions.push(this.tweetService.post(post).subscribe(
-      data => {
-        console.log(data);
+      tweet => {
+        console.log(tweet);
         this.postClickedEE.emit(true);
       },
       err => {

@@ -11,6 +11,7 @@ import { setGlobalMiddleware } from './api/middlewares/global.middleware';
 
 
 mongoose.Promise = global.Promise;
+mongoose.set('useFindAndModify', false);
 mongoose.connect('mongodb+srv://admin:admin@twitterclone-zrea5.azure.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => console.log('connected to DB')

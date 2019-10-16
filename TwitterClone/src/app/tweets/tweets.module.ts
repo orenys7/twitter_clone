@@ -4,6 +4,7 @@ import { TweetsListComponent } from './components/tweets-list/tweets-list.compon
 import { TweetComponent } from './components/tweet/tweet.component';
 import { AngularMaterialModule } from '../shared/layout/material/material.module';
 import { CommonModule } from '@angular/common';
+import { TweetsRoutingModule } from './tweets-routing.module';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
       FormsModule,
       ReactiveFormsModule,
       AngularMaterialModule,
+      TweetsRoutingModule
     ],
     exports: [
       TweetsListComponent,

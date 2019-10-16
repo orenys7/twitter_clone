@@ -8,7 +8,7 @@ export interface ITweet extends mongoose.Document {
     authorAvatarUrl: string;
     content: string;
     createdAt: string;
-    startCounter: number;
+    starCounter: number;
     starsUsers: string[];
 }
 
@@ -30,13 +30,13 @@ const TweetSchema = new mongoose.Schema({
         type: String,
 
     },
-    startCounter: {
+    starCounter: {
         type: Number,
 
     },
-    starsUsers: [{
-        username: String
-    }],
+    starsUsers: {
+        type: [],
+    },
 }, { timestamps: true });
 
 TweetSchema.plugin(uniqueValidator, { message: 'is already taken.' });

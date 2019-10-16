@@ -1,5 +1,3 @@
-import { IProfile } from './profile.model';
-
 export interface ITweet{
     _id: string,
     authorID: string
@@ -7,7 +5,7 @@ export interface ITweet{
     authorAvatarUrl: string,
     content: string,
     createdAt: string,
-    startCounter: number,
+    starCounter: number,
     starsUsers: string[]
 }
 
@@ -17,6 +15,6 @@ export interface IPost{
     authorAvatarUrl: string,
     content: string,
     createdAt: string,
-    startCounter: number,
+    starCounter: number,
     starsUsers: string[]
 }

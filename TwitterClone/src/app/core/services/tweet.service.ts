@@ -27,8 +27,6 @@ export class TweetService {
     return this.apiService.post('/tweets', { tweet: tweet })
     .pipe(map(
       data => {
-        console.log(data);
-        console.log(data.tweet);
         return data.tweet;
       }
     ));
@@ -43,6 +41,7 @@ export class TweetService {
   }
 
   unfavorite(id): Observable<string[]> {
-    return this.apiService.delete(`/tweets/:${id}/star-toggle`);
+    return this.apiService.post(`/tweets/${id}/star-toggle`);
   }
+  
 }

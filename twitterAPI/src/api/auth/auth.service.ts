@@ -8,8 +8,6 @@ export default {
             username: Joi.string().min(4).required(),
             password: Joi.string().min(8).regex(new RegExp('[a-zA-Z0-9]*[A-Z]+[a-zA-Z0-9]*')).required(),
             image: Joi.string(),
-            // createdAt: Joi.string(),
-            // lastLogin: Joi.string()
         });
         const { error, value } = Joi.validate(body, schema);
         if (error && error.details) {

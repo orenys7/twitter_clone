@@ -15,15 +15,12 @@ export default {
     },
 
     async getProfileById (id: string) {
-        console.log(id);
         const matched = User.findById(id);
         return matched;
     },
 
     async getUserTweets (authorID: string) {
-        console.log(authorID);
         const matched = Tweet.find({'authorID': authorID});
-        console.log(matched);
         return matched;
     }
 }

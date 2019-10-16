@@ -1,5 +1,5 @@
 <app-profile-header *ngIf="this.profile" [user]="this.profile"></app-profile-header>
 <main>
     <br>
-    <app-tweets-list [profile]="this.profile"></app-tweets-list>
+    <app-tweets-list *ngIf="this.profile" [profile]="this.profile"></app-tweets-list>
 </main>

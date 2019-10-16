@@ -17,9 +17,10 @@ export default {
                 _id: req.params.id
 			};
 			const { error, value } = await membersService.validateIdSchema(profileId);
-			if(!value) return res.status(BAD_REQUEST);
+			if(!value) return res.status(BAD_REQUEST).json(error);
 			const matched = await membersService.getProfileById(profileId._id);
-			if(!matched) return res.status(NOT_FOUND);
+			if(!matched) return res.status(NOT_FOUND).json('Not Found');
+			matched.save();
 			const profile = {
 				_id: matched._id,
 				username: matched.username,
@@ -41,9 +42,9 @@ export default {
                 _id: req.params.id
 			};
 			const { error, value } = await membersService.validateIdSchema(profileId);
-			if(!value) return res.status(BAD_REQUEST);
+			if(!value) return res.status(BAD_REQUEST).json(error);
 			const tweets = await membersService.getUserTweets(req.params.id);
-			if(!tweets) return res.status(NOT_FOUND);
+			if(!tweets) return res.status(NOT_FOUND).json('Not Found');
             return res.status(OK).json({ success: true, tweets });
         }
         catch (err) {

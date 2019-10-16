@@ -22,7 +22,6 @@ export default {
             const duplicated = await authService.findDuplicated(value);
             if(duplicated) return res.status(CONFLICT).json(error);
             await authService.completeMissingDetails(value);
-            console.log(value);
             const user = await User.create(value);
             const token = jwt.sign({ user: user }, devConfig.secret, {expiresIn: '1d' });
             return res.status(201).json({ success: true, token, user });

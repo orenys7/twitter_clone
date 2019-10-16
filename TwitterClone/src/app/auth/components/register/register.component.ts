@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const control = this.registerForm.controls[controlName];
     return (control.errors && (control.dirty || control.touched))
   }
-  
+    
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

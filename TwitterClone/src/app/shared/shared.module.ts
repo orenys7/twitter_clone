@@ -8,13 +8,15 @@ import { PostComponent } from './components/post/post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { TweetsModule } from '../tweets/tweets.module';
+import { RefreshComponent } from './components/refresh/refresh.component';
 
 @NgModule({
     declarations: [
         MenuComponent,
         PostComponent,
         FullpageDirective,
-        HomeComponent
+        HomeComponent,
+        RefreshComponent
     ],
     imports: [
       CommonModule,

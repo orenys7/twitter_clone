@@ -45,27 +45,28 @@ export class TweetComponent implements OnInit, OnDestroy {
 
   star() {
     if (this.favorited === false) {
-      this.tweet.startCounter++;
       this.subscriptions.push(this.tweetService.favorite(this.tweet._id).subscribe(
         stars => {
           this.tweet.starsUsers = stars;
-          this.tweet.startCounter = stars.length;
+          this.tweet.starCounter = stars.length;
         }
       ));
     } else {
-      this.tweet.startCounter--;
       this.subscriptions.push(this.tweetService.unfavorite(this.tweet._id).subscribe(
         stars => {
           this.tweet.starsUsers = stars;
-          this.tweet.startCounter = stars.length;
+          this.tweet.starCounter = stars.length;
         }
       ));
     }
     this.favorited = (!this.favorited);
   }
 
-  navigateTo(username: String) {
-    this.router.navigate(['../profile/', this.tweet.authorID], { relativeTo: this.route });
+  navigateTo() {
+    this.router.navigateByUrl(`/profile/${this.tweet.authorID}`, {skipLocationChange: true})
+    .then(() => {
+      this.router.navigateByUrl(`/profile/${this.tweet.authorID}`);
+    });
   }
 
   reply() {

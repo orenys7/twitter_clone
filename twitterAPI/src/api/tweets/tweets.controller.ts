@@ -12,7 +12,8 @@ import tweetsService from './tweets.service';
 import Tweet from '../../models/tweet.model';
 import passport = require('passport');
 import { IVerifyOptions } from 'passport-local';
-// import { devConfig } from '../../config/env/dev';
+import jwt from 'jsonwebtoken';
+import { devConfig } from '../../config/env/dev';
 
 export default {
     async getTweets(req: Request, res: Response) {
@@ -28,16 +29,23 @@ export default {
 
     async postTweet(req: Request, res: Response) {
         try {
-            console.log(req.isAuthenticated());
-            // console.log(req.headers.authorization);
-            // if (!req.isAuthenticated()) return res.status(UNAUTHORIZED);
-            const { error, value } = await tweetsService.validatePostTweetSchema(req.body.tweet);
-            if (error && error.details) {
-                console.log(error);
-                return res.status(BAD_REQUEST);
-            }
-            const tweet = await Tweet.create(value);
-            return res.status(201).json({ success: true, tweet });
+            jwt.verify(req.query.token, devConfig.secret, async (err: Error, authData: any) => {
+                if (err) {
+                    return res.status(UNAUTHORIZED).json(err);
+                }
+                else {
+                    if (authData.user._id !== req.body.tweet.authorID) {
+                        return res.status(UNAUTHORIZED).json('Not Authorized');
+                    }
+                    const { error, value } = await tweetsService.validatePostTweetSchema(req.body.tweet);
+                    if (error && error.details) {
+                        console.log(error);
+                        return res.status(BAD_REQUEST).json(error);
+                    }
+                    const tweet = await Tweet.create(value);
+                    return res.status(201).json({ success: true, tweet });
+                }
+            });
         }
         catch (err) {
             console.error(err);
@@ -47,19 +55,35 @@ export default {
 
     async starToggle(req: Request, res: Response) {
         try {
-            const tweetToStar = {
-                _id: req.params.id
-            };
-            // if (!req.isAuthenticated()) return res.status(UNAUTHORIZED);
-            const { error, value } = await tweetsService.validateTweetIDSchema(tweetToStar);
-            if (error && error.details) {
-                console.log(error);
-                return res.status(BAD_REQUEST);
-            }
-            const tweet = await Tweet.findById(value);
-            if (!tweet) {
-                return res.status(NOT_FOUND).json(error);
-            }
+            jwt.verify(req.query.token, devConfig.secret, async (err: Error, authData: any) => {
+                if (err) {
+                    return res.status(UNAUTHORIZED).json(err);
+                }
+                else {
+                    const tweetToStar = {
+                        _id: req.params.id
+                    };
+                    const userID: string = authData.user._id;
+                    const { error, value } = await tweetsService.validateTweetIDSchema(tweetToStar);
+                    if (error && error.details) {
+                        console.log(error);
+                        return res.status(BAD_REQUEST).json(error);
+                    }
+                    const tweet = await Tweet.findById(tweetToStar._id);
+                    if (!tweet) {
+                        return res.status(NOT_FOUND).json('Not Found');
+                    }
+                    const userIndex = tweet.starsUsers.indexOf(userID);
+                    if(userIndex === -1){
+                        await tweetsService.favorite(tweet, userID);
+                    }
+                    else {
+                        await tweetsService.unfavorite(tweet, userID);
+                    }
+                    return res.status(OK).json(tweet.starsUsers);
+                }
+            });
+
         }
         catch (err) {
             console.error(err);
@@ -69,28 +93,30 @@ export default {
 
     async deleteTweetById(req: Request, res: Response) {
         try {
-            // if (!req.isAuthenticated()) {
-            //     console.log('not authenticated');
-            //     return res.status(UNAUTHORIZED);
-            // }
-            const tweetToDelete = {
-                _id: req.params.id
-            };
-            const { error, value } = await tweetsService.validateTweetIDSchema(tweetToDelete);
-            if (error && error.details) {
-                console.log(error);
-                return res.status(BAD_REQUEST).json(error);
-            }
-            const tweet = await Tweet.findById(value);
-            if (!tweet) {
-                return res.status(NOT_FOUND).json(error);
-            }
-            // if (value.authorID !== tweet.authorID) {
-            //     console.log('Not the Owner');
-            //     return res.status(FORBIDDEN);
-            // }
-            await Tweet.deleteOne({ "_id": tweet._id });
-            return res.status(NO_CONTENT).json({ success: true });
+            jwt.verify(req.query.token, devConfig.secret, async (err: Error, authData: any) => {
+                if (err) {
+                    return res.status(UNAUTHORIZED).json(err);
+                }
+                else {
+                    const tweetToDelete = {
+                        _id: req.params.id
+                    };
+                    const { error, value } = await tweetsService.validateTweetIDSchema(tweetToDelete);
+                    if (error && error.details) {
+                        console.log(error);
+                        return res.status(BAD_REQUEST).json(error);
+                    }
+                    const tweet = await Tweet.findById(value);
+                    if (!tweet) {
+                        return res.status(NOT_FOUND).json('Not Found');
+                    }
+                    if (authData.user._id !== tweet.authorID) {
+                        return res.status(FORBIDDEN).json('Not the Owner');
+                    }
+                    await Tweet.deleteOne({ "_id": tweet._id });
+                    return res.status(NO_CONTENT).json({ success: true });
+                }
+            });
         }
         catch (err) {
             console.error(err);
