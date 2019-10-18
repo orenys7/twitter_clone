@@ -5,8 +5,8 @@
         </div>
         <div class="profile-details">
             <div class="mat-headline">{{ this.user.username }}</div>
-            <div class="mat-subheading-1">Registration date: {{ this.user.createdAt }}</div>
-            <div class="mat-small">Last login: {{ this.user.lastLogin }}</div>
+            <div class="mat-subheading-1">{{'registrationDate' | translate}}: {{ this.user.createdAt }}</div>
+            <div class="mat-small">{{'lastLogin' | translate}}: {{ this.user.lastLogin }}</div>
         </div>
     </div>
 </mat-card>

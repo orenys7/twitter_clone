@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Tweet</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="postForm" class="post-form">
+        <mat-form-field class="post-form__content">
+            <textarea matInput placeholder="{{ 'textHere' | translate }}" formControlName="textTweet" [(ngModel)]="textPost" required></textarea>
+        </mat-form-field>
+        <div class="post-form__details">
+            <span>{{ textPost.length }}/240 </span>
+        </div>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>{{'cancel'|translate}}</button>
+            <button mat-raised-button type="submit" [disabled]="!postForm.valid" [mat-dialog-close]="textPost">{{ 'post' | translate }}</button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

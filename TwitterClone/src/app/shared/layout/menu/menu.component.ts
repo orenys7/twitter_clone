@@ -4,6 +4,7 @@ import { IUser } from 'src/app/core/models/user.model';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -17,6 +18,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
+    public translate: TranslateService
   ) { }
 
   languages: String[] = ['EN', 'ES'];
@@ -35,11 +37,15 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   navigateToProfile() {
-      this.router.navigateByUrl('/refresh', {skipLocationChange: true})
+    this.router.navigateByUrl('/refresh', { skipLocationChange: true })
       .then(() => {
         this.router.navigateByUrl(`/profile/${this.currentUser._id}`);
       });
-    }  
+  }
+
+  changeLanguage(lang: string){
+    this.translate.use(lang);
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());

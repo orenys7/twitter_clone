@@ -1,7 +1,6 @@
 import express from 'express';
-import { Request, Response, NextFunction } from 'express';
 // import fs from 'fs';
-// import path from 'path';
+import path from "path";
 // import morgan from 'morgan';
 import mongoose from 'mongoose';
 import router from './routes/index';
@@ -24,20 +23,24 @@ app.set('port', port);
 setGlobalMiddleware(app);
 
 app.use('', router);
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const error = new Error('Not found');
-  error.message = 'Invalid route';
-  // error.status = 404;
-  next(error);
-});
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-  // res.status(error.status || 500);
-  return res.json({
-    error: {
-      message: error.message,
-    },
-  });
-});
+
+
+
+
+// app.use((req: Request, res: Response, next: NextFunction) => {
+//   const error = new Error('Not found');
+//   error.message = 'Invalid route';
+//   // error.status = 404;
+//   next(error);
+// });
+// app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+//   // res.status(error.status || 500);
+//   return res.json({
+//     error: {
+//       message: error.message,
+//     },
+//   });
+// });
 
 
 

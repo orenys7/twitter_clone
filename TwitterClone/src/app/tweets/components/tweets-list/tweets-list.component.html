@@ -1,3 +1,3 @@
 <main>
-    <app-tweet *ngFor="let item of tweets" [tweet]="item" [user]="currentUser" (deleteBtnClickedEE)="refresh($event)"></app-tweet>
+    <app-tweet *ngFor="let item of tweets" [tweet]="item" [user]="currentUser" (opertaionEE)="operationApi($event)"></app-tweet>
 </main>

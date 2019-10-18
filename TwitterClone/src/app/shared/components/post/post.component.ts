@@ -4,6 +4,7 @@ import { FormControl, Validators, FormBuilder, FormGroup, AbstractControl } from
 import { Router, ActivatedRoute } from '@angular/router';
 import { IUser, ITweet, IPost } from 'src/app/core/models';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 class Model {
   textTweet = '';
@@ -28,8 +29,7 @@ export class PostComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private authService: AuthService,
     private tweetService: TweetService,
-    // private route: ActivatedRoute,
-    // private router: Router,
+    public translate: TranslateService
   ) {
     this.postForm = fb.group({
       textTweet: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(240)]]

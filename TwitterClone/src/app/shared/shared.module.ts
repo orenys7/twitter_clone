@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { TweetsModule } from '../tweets/tweets.module';
 import { RefreshComponent } from './components/refresh/refresh.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
@@ -24,12 +25,14 @@ import { RefreshComponent } from './components/refresh/refresh.component';
       SharedRoutingModule,
       TweetsModule,
       FormsModule,
+      TranslateModule,
       ReactiveFormsModule,
     ],
     exports: [
         MenuComponent,
         PostComponent,
         AngularMaterialModule,
+        TranslateModule,
     ]
   })
   export class SharedModule { }

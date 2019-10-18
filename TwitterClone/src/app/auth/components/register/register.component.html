@@ -1,30 +1,30 @@
 <main>
     <mat-card>
         <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
-            <div class="mat-display-1">Register</div>
+            <div class="mat-display-1">{{'register'|translate}}</div>
             <mat-form-field>
-                <input matInput placeholder="Email" formControlName="email" required>
+                <input matInput placeholder="{{'email'|translate}}" formControlName="email" required>
             </mat-form-field>
             <div *ngIf="hasError('email')">
                 <mat-error>Enter valid email address</mat-error>
             </div>
             <mat-form-field>
-                <input matInput placeholder="Username" formControlName="username" required>
+                <input matInput placeholder="{{'username'|translate}}" formControlName="username" required>
             </mat-form-field>
             <div *ngIf="hasError('username')">
                 <mat-error>Enter valid username.</mat-error>
             </div>
             <mat-form-field>
-                <input matInput placeholder=" Password " type="password" formControlName="password" required>
+                <input matInput placeholder="{{'password'|translate}}" type="password" formControlName="password" required>
             </mat-form-field>
             <div *ngIf="hasError('password')">
                 <mat-error>Required one capital letter, length 8.</mat-error>
             </div>
             <mat-form-field>
-                <input matInput placeholder="Image Path " formControlName="image">
+                <input matInput placeholder="{{'imagePath'|translate}}" formControlName="image">
             </mat-form-field>
             <div>
-                <button mat-raised-button type="submit " [disabled]="!registerForm.valid ">Register</button>
+                <button mat-raised-button type="submit" [disabled]="!registerForm.valid">{{'register'|translate}}</button>
             </div>
             <br>
             <div *ngIf="this.errors">

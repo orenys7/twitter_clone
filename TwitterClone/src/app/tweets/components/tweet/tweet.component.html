@@ -6,7 +6,7 @@
         <div class="tweet-details">
             <mat-button (click)="navigateTo()">{{tweet.author}}</mat-button>
             <span> - </span>
-            <span>Created At: {{tweet.createdAt}}</span>
+            <span>{{'createdAt' | translate}}: {{tweet.createdAt}}</span>
             <div class="tweet-content__container">
                 <p class="tweet-content">{{tweet.content}}</p>
             </div>

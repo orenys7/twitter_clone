@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { TweetService } from 'src/app/core/services/tweet.service';
-import { ITweet, IProfile, IUser } from 'src/app/core/models';
+import { ITweet, IProfile, IUser, IPost } from 'src/app/core/models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services';
-import { Subscription, interval, timer } from 'rxjs';
-import { startWith, switchMap, concatMap, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tweets-list',
@@ -22,7 +21,6 @@ export class TweetsListComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    // private router: Router,
     private authService: AuthService,
     private tweetService: TweetService
   ) { }
@@ -35,36 +33,11 @@ export class TweetsListComponent implements OnInit, OnDestroy {
       }
     ));
     this.fetchTweets(this.id);
-    this.timerId =setInterval(() => this.fetchTweets(this.id), 10000);
-    
-    // if (this.id) {     
-    //   this.subscriptions.push(this.tweetService.getUserTweets(this.profile._id).subscribe(
-    //     (tweets: ITweet[]) => {
-    //       this.tweets = tweets;
-    //     }
-    //   ));
-    // }
-    // else {
-    //   this.subscriptions.push(this.tweetService.get().subscribe(
-    //     (tweets: ITweet[]) => {
-    //       this.tweets = tweets;
-    //     }
-    //   ));
-    // }
-    
-    // timer(0,10000)
-    // .subscribe(
-    //   () => {
-    //     this.ngOnDestroy();
-    //     this.ngOnInit();
-    //     console.log('refreshed');
-        
-    //   }
-    //)
+    this.timerId = setInterval(() => this.fetchTweets(this.id), 10000);
   }
 
-  fetchTweets(id?:string){
-    if (this.id) {     
+  fetchTweets(id?: string) {
+    if (this.id) {
       this.subscriptions.push(this.tweetService.getUserTweets(this.profile._id).subscribe(
         (tweets: ITweet[]) => {
           this.tweets = tweets;
@@ -80,13 +53,41 @@ export class TweetsListComponent implements OnInit, OnDestroy {
     }
   }
 
+  operationApi(message: any) {
+    clearInterval(this.timerId);
+    if (message.operation === 'delete') {
+      this.subscriptions.push(this.tweetService.delete(message.tweetId).subscribe(
+        () => this.refresh()
+      ));
+    }
+    if (message.operation === 'reply') {
+      const post = this.setPostDetails(message.tweet);
+      this.subscriptions.push(this.tweetService.post(post).subscribe(
+        () => this.refresh()
+      ));
+    }
+  }
+
+  setPostDetails(content: string): IPost {
+    let post: IPost = {
+      authorID: this.currentUser._id,
+      author: this.currentUser.username,
+      authorAvatarUrl: this.currentUser.image,
+      content: content,
+      createdAt: new Date().toLocaleDateString(),
+      starCounter: 0,
+      starsUsers: []
+    };
+    return post;
+  }
+
   refresh() {
     this.ngOnDestroy();
     this.ngOnInit();
   }
 
   ngOnDestroy(): void {
-    console.log('destroyed!');
+    // console.log('destroyed!');
     clearInterval(this.timerId);
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

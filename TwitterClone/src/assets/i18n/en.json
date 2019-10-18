@@ -1,0 +1,17 @@
+{
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "logout": "Logout",
+    "createdAt": "Created At",
+    "lastLogin": "Last Login",
+    "post": "Post",
+    "registrationDate": "Registration Date",
+    "textHere": "Text Here",
+    "cancel": "Cancel",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "imagePath": "Image Path"
+}

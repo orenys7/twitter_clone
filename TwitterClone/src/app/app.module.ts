@@ -22,7 +22,6 @@ import { ProfileModule } from './profile/profile.module';
     SharedModule,
     TweetsModule,
     AppRoutingModule,
-    
   ],
   exports:[
     NotFoundComponent,

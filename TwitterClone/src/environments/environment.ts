@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   port: '27017',
-  api_url: 'http://localhost:27017/api'//`https://localhost:${this.port}/api`
+  api_url: 'http://localhost:27017/api', //`https://localhost:${this.port}/api`
+  server_url: 'http://localhost:27017' 
 
 };
 
