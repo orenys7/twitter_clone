@@ -1,5 +1,5 @@
 <nav>
-    <mat-toolbar color="primary" fullpage>
+    <mat-toolbar fullpage>
         <div class="toolbar__container" fullpage>
             <div class="toolbar__left-links" fullpage>
                 <a mat-button routerLink="">{{ 'home' | translate }}</a>
@@ -13,8 +13,7 @@
                 </div>
             </div>
             <div>
-                <button mat-button class="toolbar__right-links" [matMenuTriggerFor]="menu">{{'language' | translate}}
-        </button>
+                <button mat-button class="toolbar__right-links" [matMenuTriggerFor]="menu">{{'language' | translate}}        </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item fullpage *ngFor="let lang of translate.getLangs()" (click)="changeLanguage(lang)">{{ lang.toUpperCase() }}</button>
                 </mat-menu>

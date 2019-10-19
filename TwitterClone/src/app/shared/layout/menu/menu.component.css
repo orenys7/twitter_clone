@@ -1,5 +1,7 @@
 mat-toolbar {
     width: 100%;
+    background-color: #1DA1F3;
+    color: white;
 }
 
 div {

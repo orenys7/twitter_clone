@@ -21,3 +21,7 @@ img {
 .mat-subheading-1 {
     margin: 0px 0px 0px;
 }
+
+.mat-headline {
+    font-weight: bold;
+}
