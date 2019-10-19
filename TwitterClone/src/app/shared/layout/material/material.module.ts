@@ -20,8 +20,8 @@ import {
    MatTooltipModule,
    MatTableModule,
    MatPaginatorModule,
-   MatDialog,
    MatDialogModule,
+   MatMenuModule,
 } from '@angular/material';
 
 @NgModule({
@@ -46,6 +46,7 @@ import {
       MatPaginatorModule,
       MatCardModule,
       MatDialogModule,
+      MatMenuModule,
    ],
    exports: [
       MatButtonModule,
@@ -66,6 +67,7 @@ import {
       MatPaginatorModule,
       MatCardModule,
       MatDialogModule,
+      MatMenuModule
    ],
    providers: [
       MatDatepickerModule,

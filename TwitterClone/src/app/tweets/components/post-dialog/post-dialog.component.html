@@ -7,9 +7,8 @@
         <div class="post-form__details">
             <span>{{ textPost.length }}/240 </span>
         </div>
-        <mat-dialog-actions align="end">
-            <button mat-button mat-dialog-close>{{'cancel'|translate}}</button>
-            <button mat-raised-button type="submit" [disabled]="!postForm.valid" [mat-dialog-close]="textPost">{{ 'post' | translate }}</button>
-        </mat-dialog-actions>
     </form>
 </mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button type="submit" [disabled]="!postForm.valid" [mat-dialog-close]="textPost">{{ 'post' | translate }}</button>
+</mat-dialog-actions>

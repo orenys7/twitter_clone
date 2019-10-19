@@ -7,14 +7,19 @@ import { TweetsRoutingModule } from './tweets-routing.module';
 import { PostDialogComponent } from './components/post-dialog/post-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AngularMaterialModule } from '../shared/layout/material/material.module';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     TweetsListComponent,
     TweetComponent,
     PostDialogComponent,
+    ConfirmDialogComponent,
   ],
-  entryComponents: [PostDialogComponent],
+  entryComponents: [
+    PostDialogComponent,
+    ConfirmDialogComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

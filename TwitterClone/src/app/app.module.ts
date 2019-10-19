@@ -4,7 +4,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CoreModule } from './core/core.module';
 import { TweetsModule } from './tweets/tweets.module';
 import { ProfileModule } from './profile/profile.module';
@@ -12,7 +11,6 @@ import { ProfileModule } from './profile/profile.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -23,9 +21,7 @@ import { ProfileModule } from './profile/profile.module';
     TweetsModule,
     AppRoutingModule,
   ],
-  exports:[
-    NotFoundComponent,
-  ],
+  exports:[],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

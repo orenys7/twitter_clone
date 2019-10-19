@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   model = new Model();
   loginForm: FormGroup;
   errors = { };
-
+  errorStatus: number;
 
   constructor(
     private fb: FormBuilder,
@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       },
       error => {
         this.errors = error;
+        this.errorStatus = error.status;
       }
     ));
   }

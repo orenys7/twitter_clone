@@ -33,6 +33,10 @@ export class TweetsListComponent implements OnInit, OnDestroy {
       }
     ));
     this.fetchTweets(this.id);
+    this.startInterval();
+  }
+
+  startInterval(){
     this.timerId = setInterval(() => this.fetchTweets(this.id), 10000);
   }
 
@@ -40,14 +44,14 @@ export class TweetsListComponent implements OnInit, OnDestroy {
     if (this.id) {
       this.subscriptions.push(this.tweetService.getUserTweets(this.profile._id).subscribe(
         (tweets: ITweet[]) => {
-          this.tweets = tweets;
+          this.tweets = tweets.reverse();
         }
       ));
     }
     else {
       this.subscriptions.push(this.tweetService.get().subscribe(
         (tweets: ITweet[]) => {
-          this.tweets = tweets;
+          this.tweets = tweets.reverse();
         }
       ));
     }
@@ -65,6 +69,9 @@ export class TweetsListComponent implements OnInit, OnDestroy {
       this.subscriptions.push(this.tweetService.post(post).subscribe(
         () => this.refresh()
       ));
+    }
+    if (message.operation === 'startInterval') {
+      this.startInterval();
     }
   }
 
@@ -87,7 +94,6 @@ export class TweetsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // console.log('destroyed!');
     clearInterval(this.timerId);
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

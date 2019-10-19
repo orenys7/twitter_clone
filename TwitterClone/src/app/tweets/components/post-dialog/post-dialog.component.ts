@@ -22,8 +22,6 @@ export class PostDialogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
-    private tweetService: TweetService,
   ) { 
     this.postForm = fb.group({
       textTweet: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(240)]]

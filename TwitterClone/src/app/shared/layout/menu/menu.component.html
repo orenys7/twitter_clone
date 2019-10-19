@@ -3,17 +3,21 @@
         <div class="toolbar__container" fullpage>
             <div class="toolbar__left-links" fullpage>
                 <a mat-button routerLink="">{{ 'home' | translate }}</a>
-                <div *ngIf="!currentUser._id">
+                <div *ngIf="!currentUser._id" fullpage>
                     <a mat-button routerLink="/auth/login">{{ 'login' | translate }}</a>
                     <a mat-button routerLink="/auth/register">{{ 'register' | translate }}</a>
                 </div>
-                <div *ngIf="currentUser._id">
+                <div *ngIf="currentUser._id" fullpage>
                     <a mat-button (click)="navigateToProfile()">{{ 'profile' | translate }}</a>
                     <a mat-button routerLink="/login" (click)="logout()">{{ 'logout' | translate }}</a>
                 </div>
             </div>
-            <div class="toolbar__right-links">
-                <button mat-button *ngFor="let lang of translate.getLangs()" (click)="changeLanguage(lang)">{{ lang.toUpperCase() }}</button>
+            <div>
+                <button mat-button class="toolbar__right-links" [matMenuTriggerFor]="menu">{{'language' | translate}}
+        </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item fullpage *ngFor="let lang of translate.getLangs()" (click)="changeLanguage(lang)">{{ lang.toUpperCase() }}</button>
+                </mat-menu>
             </div>
         </div>
     </mat-toolbar>

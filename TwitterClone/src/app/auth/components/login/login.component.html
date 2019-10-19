@@ -6,19 +6,19 @@
                 <input matInput placeholder="{{'email'|translate}}" formControlName="email" required>
             </mat-form-field>
             <div *ngIf="hasError('email')">
-                <mat-error>Enter valid email address</mat-error>
+                <mat-error class="mat-caption">Enter valid email address</mat-error>
             </div>
             <mat-form-field>
                 <input matInput placeholder="{{'password'|translate}}" type="password" formControlName="password" required>
             </mat-form-field>
             <div *ngIf="hasError('password')">
-                <mat-error>Required one capital letter, length 8.</mat-error>
+                <mat-error class="mat-caption">Required one capital letter, length 8.</mat-error>
             </div>
             <div>
                 <button mat-raised-button type="submit" [disabled]="!loginForm.valid">{{'login'|translate}}</button>
             </div>
             <div *ngIf="this.errors">
-                <mat-error *ngIf="this.errors.status === 400">One or more of the inputs are wrong!</mat-error>
+                <mat-error class="mat-caption" *ngIf="this.errorStatus === 400">One or more of the inputs are wrong!</mat-error>
             </div>
         </form>
     </mat-card>

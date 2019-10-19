@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { PostDialogComponent } from '../post-dialog/post-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-tweet',
@@ -17,6 +17,7 @@ export class TweetComponent implements OnInit, OnDestroy {
 
   @Input() tweet: ITweet;
   @Input() user: IUser;
+  @Input() timerId;
   @Output() opertaionEE = new EventEmitter();
   canDeleted: boolean;
   favorited: boolean;
@@ -38,12 +39,14 @@ export class TweetComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    return this.opertaionEE.emit({ operation: 'delete', tweetId: this.tweet._id });
-    // this.subscriptions.push(this.tweetService.delete(this.tweet._id).subscribe(
-    //   success => {
-    //     return this.deleteBtnClickedEE.emit(true);
-    //   }
-    // ));
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    clearInterval(this.timerId);
+    this.subscriptions.push(dialogRef.beforeClosed().subscribe(result => {
+      if (result) {
+        return this.opertaionEE.emit({ operation: 'delete', tweetId: this.tweet._id });
+      }
+      return this.opertaionEE.emit({ operation: 'startInterval'});
+    }));
   }
 
   star() {
@@ -73,15 +76,13 @@ export class TweetComponent implements OnInit, OnDestroy {
   }
 
   reply() {
-    //open pop-up component of post
     const dialogRef = this.dialog.open(PostDialogComponent);
+    clearInterval(this.timerId);
     this.subscriptions.push(dialogRef.beforeClosed().subscribe(result => {
-      return this.opertaionEE.emit({ operation: 'reply', tweet: result });
-      // this.subscriptions.push(this.tweetService.post(post).subscribe(
-      //   tweet => {
-      //     console.log(tweet);
-      //   }
-      // ));
+      if (result !== undefined) {
+        return this.opertaionEE.emit({ operation: 'reply', tweet: result });
+      }
+      return this.opertaionEE.emit({ operation: 'startInterval'});
     }));
   }
 

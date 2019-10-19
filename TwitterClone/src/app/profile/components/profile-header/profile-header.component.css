@@ -5,11 +5,19 @@
 }
 
 .profile-img {
-    margin: 2rem 2rem 2rem 2rem;
-    width: 10%;
-    height: 10%;
+    margin-top: 2rem;
+}
+
+img {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
 }
 
 .profile-details {
     margin: 2rem 2rem 2rem 2rem;
+}
+
+.mat-subheading-1 {
+    margin: 0px 0px 0px;
 }

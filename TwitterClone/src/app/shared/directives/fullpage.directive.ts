@@ -10,11 +10,13 @@ export class FullpageDirective {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.resize();
+    console.log('resize on resize');
   }
 
   @HostListener('load', ['$event'])
   onLoad(event) {
     this.resize();
+    console.log('resize on load');
   }
   
   resize() {

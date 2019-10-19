@@ -8,7 +8,6 @@ import {
   JwtService,
   ProfileService,
   TweetService,
-  UserService
 } from './services';
 import { AuthGuard } from './guards/auth.guard';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -42,7 +41,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     JwtService,
     ProfileService,
     TweetService,
-    UserService,
     AuthGuard,
   ],
   declarations: []

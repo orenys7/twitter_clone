@@ -2,6 +2,10 @@ mat-toolbar {
     width: 100%;
 }
 
+div {
+    padding: 0px 0px 0px 0px;
+}
+
 .toolbar__container {
     display: flex;
     flex-direction: row;
@@ -12,10 +16,21 @@ mat-toolbar {
 .toolbar__left-links {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+    left: 1rem;
 }
 
 .toolbar__right-links {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    right: 1rem;
+    padding-left: 3px;
+}
+
+.mat-button,
+.mat-flat-button,
+.mat-icon-button,
+.mat-stroked-button {
+    padding: 2px 0px;
 }

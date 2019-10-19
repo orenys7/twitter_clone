@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   email = new FormControl('', [Validators.required, Validators.email]);
   errors: {};
+  errorStatus: number;
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +33,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('[a-zA-Z0-9]*[A-Z]+[a-zA-Z0-9]*')]],
-      image: ['', Validators.pattern('[a-zA-Z0-9]*')],
+      image: ['',],
     });
   }
 
@@ -69,6 +70,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       error => {
         console.log(error);
         this.errors = error;
+        this.errorStatus = error.status;
       }
     ));  
   }

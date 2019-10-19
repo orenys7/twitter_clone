@@ -1,12 +1,15 @@
 <mat-card>
-    <div class="profile-container">
-        <div class="profile-img">
-            <img [src]="this.user.image" alt="profile" width="90%;" height="90%;">
+    <div class="profile-container" fullpage>
+        <div class="profile-img" fullpage>
+            <img fullpage [src]="this.user.image" alt="profile">
         </div>
-        <div class="profile-details">
+        <div class="profile-details" fullpage>
             <div class="mat-headline">{{ this.user.username }}</div>
-            <div class="mat-subheading-1">{{'registrationDate' | translate}}: {{ this.user.createdAt }}</div>
-            <div class="mat-small">{{'lastLogin' | translate}}: {{ this.user.lastLogin }}</div>
+            <div class="mat-subheading-1">{{'registrationDate' | translate}}:</div>
+            <div class="mat-subheading-1">{{ this.user.createdAt }}</div>
+            <div class="mat-small">{{'lastLogin' | translate}}: </div>
+            <div class="mat-small">{{ this.user.lastLogin }}</div>
+
         </div>
     </div>
 </mat-card>
