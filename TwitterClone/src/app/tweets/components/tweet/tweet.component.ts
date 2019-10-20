@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { TweetService, AuthService } from 'src/app/core/services';
-import { ITweet, IUser, IPost } from 'src/app/core/models';
+import { TweetService } from 'src/app/core/services';
+import { ITweet, IUser } from 'src/app/core/models';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material';
@@ -10,7 +10,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
-  styleUrls: ['./tweet.component.css']
+  styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
@@ -30,11 +30,16 @@ export class TweetComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.canDeleted = (this.user.username === this.tweet.author);
+  }
+
+  checkFavorited() {
     if (this.tweet.starsUsers.length === 0) {
       this.favorited = false;
+      return false;
     }
-    else if (this.tweet.starsUsers.indexOf(this.user.username) !== -1) {
+    else if (this.tweet.starsUsers.indexOf(this.user._id) !== -1) {
       this.favorited = true;
+      return true;
     }
   }
 
@@ -45,16 +50,18 @@ export class TweetComponent implements OnInit, OnDestroy {
       if (result) {
         return this.opertaionEE.emit({ operation: 'delete', tweetId: this.tweet._id });
       }
-      return this.opertaionEE.emit({ operation: 'startInterval'});
+      return this.opertaionEE.emit({ operation: 'startInterval' });
     }));
   }
 
   star() {
+    clearInterval(this.timerId);
     if (this.favorited === false) {
       this.subscriptions.push(this.tweetService.favorite(this.tweet._id).subscribe(
         stars => {
           this.tweet.starsUsers = stars;
           this.tweet.starCounter = stars.length;
+
         }
       ));
     } else {
@@ -65,7 +72,8 @@ export class TweetComponent implements OnInit, OnDestroy {
         }
       ));
     }
-    this.favorited = (!this.favorited);
+    this.checkFavorited();
+    return this.opertaionEE.emit({ operation: 'startInterval' });
   }
 
   navigateTo() {
@@ -82,7 +90,7 @@ export class TweetComponent implements OnInit, OnDestroy {
       if (result !== undefined) {
         return this.opertaionEE.emit({ operation: 'reply', tweet: result });
       }
-      return this.opertaionEE.emit({ operation: 'startInterval'});
+      return this.opertaionEE.emit({ operation: 'startInterval' });
     }));
   }
 

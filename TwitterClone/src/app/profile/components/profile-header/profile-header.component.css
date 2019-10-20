@@ -1,3 +1,7 @@
+.header-card {
+    background-color: rgba(236, 236, 236, 0.288);
+}
+
 .profile-container {
     display: flex;
     flex-direction: row;

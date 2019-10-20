@@ -21,3 +21,8 @@ mat-form-field {
 mat-raised-button {
     justify-self: flex-end;
 }
+
+.mat-form-field-invalid .mat-input-element,
+.mat-warn .mat-input-element {
+    caret-color: none;
+}

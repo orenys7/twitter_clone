@@ -1,3 +1,3 @@
 <main>
-    <app-tweet *ngFor="let item of tweets" [tweet]="item" [user]="currentUser" [timerId]="timerId" (opertaionEE)="operationApi($event)"></app-tweet>
+    <app-tweet class="tweet" *ngFor="let item of tweets" [tweet]="item" [user]="currentUser" [timerId]="timerId" (opertaionEE)="operationApi($event)"></app-tweet>
 </main>

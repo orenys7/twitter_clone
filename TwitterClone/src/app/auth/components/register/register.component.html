@@ -20,7 +20,8 @@
             <div *ngIf="hasError('password')">
                 <mat-error class="mat-caption">Required one capital letter, length 8.</mat-error>
             </div>
-            <mat-form-field>
+            <mat-checkbox color="primary" (change)="checked= !checked">Profile Image?</mat-checkbox>
+            <mat-form-field *ngIf="checked">
                 <input matInput placeholder="{{'imagePath'|translate}}" formControlName="image">
             </mat-form-field>
             <div>

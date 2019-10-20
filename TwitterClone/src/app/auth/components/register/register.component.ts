@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   email = new FormControl('', [Validators.required, Validators.email]);
   errors: {};
   errorStatus: number;
+  checked: boolean = false;
 
   constructor(
     private fb: FormBuilder,

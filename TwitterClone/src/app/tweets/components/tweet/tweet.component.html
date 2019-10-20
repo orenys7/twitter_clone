@@ -15,39 +15,14 @@
                 <p class="tweet-content">{{tweet.content}}</p>
             </article>
             <section class="tweet-tools__container" fullpage>
-                <img class="tweet-tools__btn" fullpage *ngIf="this.canDeleted" src="assets/icons/delete.svg" alt="delete" (click)="delete()" />
-                <img class="tweet-tools__btn" fullpage *ngIf="this.canDeleted" src="assets/icons/reply.svg" alt="reply" (click)="reply()" />
-                <span *ngIf="this.user._id !== undefined"> {{tweet.starCounter}} </span>
-                <img class="tweet-tools__btn" fullpage *ngIf="this.user._id !== undefined" src="assets/icons/star.svg" alt="star" (click)="star()" />
+                <mat-icon id="delete-btn" class="tweet-tools__btn" fullpage *ngIf="this.canDeleted" (click)="delete()">delete
+                </mat-icon>
+                <mat-icon id="reply-btn" class="tweet-tools__btn" fullpage *ngIf="this.user._id !== undefined" (click)="reply()">reply
+                </mat-icon>
+                <span [ngClass]="{active: checkFavorited() === true}" *ngIf="this.user._id !== undefined"> {{tweet.starCounter}} </span>
+                <mat-icon id="star-btn" [ngClass]="{active: checkFavorited() === true}" class="tweet-tools__btn" fullpage *ngIf="this.user._id !== undefined" (click)="star()">star</mat-icon>
             </section>
         </div>
     </mat-card>
     <br>
 </main>
-
-<!-- <main>
-        <mat-card>
-            <div class="tweet-container" fullpage>
-                <div class="profile-img" fullpage>
-                    <img class="profile-img__object" [src]="tweet.authorAvatarUrl" alt="profile">
-                </div>
-                <div class="tweet-details__container" fullpage>
-                    <div class="tweet-details">
-                        <mat-button (click)="navigateTo()">{{tweet.author}}</mat-button>
-                        <span> - </span>
-                        <span>{{'createdAt' | translate}}: {{tweet.createdAt}}</span>
-                        <div class="tweet-content__container">
-                            <p class="tweet-content">{{tweet.content}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tweet-tools" fullpage>
-                <img class="tweet-tools__btn" fullpage *ngIf="this.canDeleted" src="assets/icons/delete.svg" alt="delete" (click)="delete()" />
-                <img class="tweet-tools__btn" fullpage *ngIf="this.canDeleted" src="assets/icons/reply.svg" alt="reply" (click)="reply()" />
-                <span *ngIf="this.user._id !== undefined"> {{tweet.starCounter}} </span>
-                <img class="tweet-tools__btn" fullpage *ngIf="this.user._id !== undefined" src="assets/icons/star.svg" alt="star" (click)="star()" />
-            </div>
-        </mat-card>
-        <br>
-    </main> -->
