@@ -1,8 +1,4 @@
 import express from 'express';
-// import fs from 'fs';
-import path from "path";
-// import morgan from 'morgan';
-import mongoose from 'mongoose';
 import router from './routes/index';
 import { KnownConfigKey } from './config/config';
 import { setGlobalMiddleware } from './middlewares/global.middleware';

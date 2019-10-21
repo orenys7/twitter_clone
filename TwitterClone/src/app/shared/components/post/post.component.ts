@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, ChangeDetectorRef  } from '@angular/core';
 import { TweetService, AuthService } from 'src/app/core/services';
 import { FormControl, Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { IUser, IPost } from 'src/app/core/models';
@@ -27,6 +27,7 @@ export class PostComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private authService: AuthService,
     private tweetService: TweetService,
+    private cd: ChangeDetectorRef
   ) {
     this.postForm = fb.group({
       textTweet: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(240)]]
@@ -67,10 +68,12 @@ export class PostComponent implements OnInit, OnDestroy {
 
   saveTweet() {
     const post = this.setPostDetails();
-    this.textPost = '';
     this.subscriptions.push(this.tweetService.post(post).subscribe(
       tweet => {
+        this.postForm.reset();
+        this.textPost = '';
         this.postClickedEE.emit(true);
+        this.cd.detectChanges();
       },
       err => {
         this.errors = err;

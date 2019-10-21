@@ -22,6 +22,6 @@ export const setGlobalMiddleware = (app: any) => {
     });
   });
 
-  app.use(passport.initialize({ userProperty: 'currentUser' }));
+  app.use(passport.initialize({ userProperty: 'jwtToken' }));
   initPassport();
 };
