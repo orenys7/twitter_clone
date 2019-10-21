@@ -1,4 +1,4 @@
-import Joi, { func } from 'joi';
+import Joi from 'joi';
 import User from '../../models/user.model';
 import Tweet from '../../models/tweet.model';
 

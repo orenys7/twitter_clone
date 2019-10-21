@@ -2,8 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
-import { JwtService } from 'src/app/core/services';
-import { LoginResp } from 'src/app/core/models';
 import { Subscription } from 'rxjs';
 
 class Model {
@@ -27,7 +25,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private jwtService: JwtService,
     private router: Router,
   ) {
     this.loginForm = fb.group({

@@ -23,8 +23,6 @@ export function verifyJwtToken(req: Request, res: Response, next: NextFunction) 
 export function authorize() {
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.isAuthenticated()){
-      console.log('isAuthenticated');
-      console.log(req.isAuthenticated());
       res.sendStatus(401);
     }
     const user = req.user as IUser;

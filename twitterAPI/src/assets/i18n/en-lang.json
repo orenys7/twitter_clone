@@ -1,3 +1,21 @@
 {
-    "home": "Home"
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "logout": "Logout",
+    "language": "Language",
+    "createdAt": "Created At",
+    "lastLogin": "Last Login",
+    "post": "Post",
+    "registrationDate": "Registration Date",
+    "textHere": "Text Here",
+    "confirmation": "Confirmation",
+    "confirmationMessage": "Are you sure?",
+    "sure": "Sure",
+    "cancel": "Cancel",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "imagePath": "Image Path"
 }

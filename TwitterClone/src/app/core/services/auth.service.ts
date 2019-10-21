@@ -1,8 +1,7 @@
-import { Injectable, ɵSWITCH_ELEMENT_REF_FACTORY__POST_R3__ } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { IUser, LoginResp } from '../models';
 import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import {  JwtService } from './jwt.service';
 
@@ -12,32 +11,14 @@ import {  JwtService } from './jwt.service';
 export class AuthService {
 
   private currentUserSubject = new BehaviorSubject<IUser>({} as IUser);
-  public currentUser = this.currentUserSubject.asObservable(); //.pipe(distinctUntilChanged())
-
+  public currentUser = this.currentUserSubject.asObservable(); 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
   constructor (
     private apiService: ApiService,
-    private http: HttpClient,
     private jwtService: JwtService
   ) {}
-
-  // // Verify JWT in localstorage with server & load user's info.
-  // // This runs once on application startup.
-  // populate() {
-  //   // If JWT detected, attempt to get & store user's info
-  //   if (this.jwtService.getToken()) {
-  //     this.apiService.get('/user')
-  //     .subscribe(
-  //       data => this.setAuth(data.user),
-  //       err => this.purgeAuth()
-  //     );
-  //   } else {
-  //     // Remove any potential remnants of previous auth states
-  //     this.purgeAuth();
-  //   }
-  // }
 
   setAuth(resp: LoginResp) {
     // Save JWT sent from server in localstorage
@@ -62,9 +43,7 @@ export class AuthService {
     return this.apiService.post('/auth' + route, {user: credentials})
       .pipe(map(
       data => {
-        console.log(data);
         this.setAuth(data);
-        console.log(this.currentUser);
         return data;
       }
     ));

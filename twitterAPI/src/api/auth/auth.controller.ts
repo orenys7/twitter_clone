@@ -9,7 +9,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import authService from './auth.service';
 import User from '../../models/user.model';
-import { devConfig } from '../../config/env/dev';
+import { KnownConfigKey } from '../../config/config';
 
 export default {
     async register (req: Request, res: Response) {
@@ -23,7 +23,7 @@ export default {
             if(duplicated) return res.status(CONFLICT).json(error);
             await authService.completeMissingDetails(value);
             const user = await User.create(value);
-            const token = jwt.sign({ user: user }, devConfig.secret, {expiresIn: '1d' });
+            const token = jwt.sign({ user: user }, KnownConfigKey.secret, {expiresIn: '1d' });
             return res.status(201).json({ success: true, token, user });
         }
         catch(err){
@@ -48,7 +48,7 @@ export default {
                 return res.status(BAD_REQUEST).json({ error: 'Invalid credentials' });
             }
             authService.setUpdatedDate(user);
-            const token = jwt.sign({ user: user }, devConfig.secret, {expiresIn: '1d' });
+            const token = jwt.sign({ user: user }, KnownConfigKey.secret, {expiresIn: '1d' });
             return res.status(OK).json({success: true, token, user });
         }
         catch(err){

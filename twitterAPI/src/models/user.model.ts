@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import CryptoJS from 'crypto-js';
 import uniqueValidator from 'mongoose-unique-validator';
 import jwt from 'jsonwebtoken';
-import { devConfig } from '../config/env/dev';
+import { KnownConfigKey } from '../config/config';
 
 export interface IUser extends mongoose.Document {
     username: String;
@@ -70,7 +70,7 @@ UserSchema.methods.generateJWT = function () {
         id: this._id,
         username: this.username,
         exp: parseInt(`${exp.getTime() / 1000}`),
-    }, devConfig.secret);
+    }, KnownConfigKey.secret);
 }
 
 UserSchema.methods.toAuthJSON = function () {

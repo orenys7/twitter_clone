@@ -10,10 +10,8 @@ import {
 import { Request, Response } from 'express';
 import tweetsService from './tweets.service';
 import Tweet from '../../models/tweet.model';
-import passport = require('passport');
-import { IVerifyOptions } from 'passport-local';
 import jwt from 'jsonwebtoken';
-import { devConfig } from '../../config/env/dev';
+import { KnownConfigKey } from '../../config/config';
 
 export default {
     async getTweets(req: Request, res: Response) {
@@ -29,7 +27,7 @@ export default {
 
     async postTweet(req: Request, res: Response) {
         try {
-            jwt.verify(req.query.token, devConfig.secret, async (err: Error, authData: any) => {
+            jwt.verify(req.query.token, KnownConfigKey.secret, async (err: Error, authData: any) => {
                 if (err) {
                     return res.status(UNAUTHORIZED).json(err);
                 }
@@ -55,7 +53,7 @@ export default {
 
     async starToggle(req: Request, res: Response) {
         try {
-            jwt.verify(req.query.token, devConfig.secret, async (err: Error, authData: any) => {
+            jwt.verify(req.query.token, KnownConfigKey.secret, async (err: Error, authData: any) => {
                 if (err) {
                     return res.status(UNAUTHORIZED).json(err);
                 }
@@ -93,7 +91,7 @@ export default {
 
     async deleteTweetById(req: Request, res: Response) {
         try {
-            jwt.verify(req.query.token, devConfig.secret, async (err: Error, authData: any) => {
+            jwt.verify(req.query.token, KnownConfigKey.secret, async (err: Error, authData: any) => {
                 if (err) {
                     return res.status(UNAUTHORIZED).json(err);
                 }

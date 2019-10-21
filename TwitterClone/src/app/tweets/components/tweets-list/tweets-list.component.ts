@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { TweetService } from 'src/app/core/services/tweet.service';
 import { ITweet, IProfile, IUser, IPost } from 'src/app/core/models';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services';
 import { Subscription } from 'rxjs';
 

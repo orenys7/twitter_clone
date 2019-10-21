@@ -1,7 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
-import { AuthService, TweetService } from 'src/app/core/services';
-import { TranslateService } from '@ngx-translate/core';
 
 class Model {
   textTweet = '';

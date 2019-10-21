@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import PassportJWT from 'passport-jwt';
-import { devConfig } from '../../config/env/dev';
+import { KnownConfigKey } from '../../config/config';
 import User, { IUser } from '../../models/user.model';
 
 
@@ -23,10 +23,10 @@ export function initPassport() {
 
   const opts = {
     jwtFromRequest: PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: devConfig.secret
+    secretOrKey: KnownConfigKey.secret
   };
   opts.jwtFromRequest = PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken();
-  opts.secretOrKey = devConfig.secret;
+  opts.secretOrKey = KnownConfigKey.secret;
 
   passport.use(
     new PassportJWT.Strategy(opts, (payload, done) => {
@@ -43,25 +43,3 @@ export function initPassport() {
     })
   );
 }
-
-
-
-// const LocalStrategy = passportLocal.Strategy;
-// const user = mongoose.model('User');
-
-// passport.use(
-//     new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
-//         user.findOne({ email: email.toLowerCase() }, (err: any, user: any) => {
-//             if (err) { return done(err); }
-//             if (!user) {
-//                 return done(undefined, false, { message: `Email ${email} not found.` });
-//             }
-//             user.comparePassword(password, (err: Error, isMatch: boolean) => {
-//                 if (err) { return done(err); }
-//                 if (isMatch) {
-//                     return done(undefined, user);
-//                 }
-//                 return done(undefined, false, { message: "Invalid email or password." });
-//             });
-//         });
-//     }));

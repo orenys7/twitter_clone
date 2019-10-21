@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ApiService } from './api.service';
-import { ITweet } from '../models/tweet.model';
+import { ITweet, IPost } from '../models/tweet.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -18,12 +17,12 @@ export class TweetService {
       .pipe(map(data => data.tweets));
   }
 
-  getUserTweets(userID): Observable<ITweet[]> {
+  getUserTweets(userID: string): Observable<ITweet[]> {
     return this.apiService.get(`/members/${userID}/tweets`)
       .pipe(map(data => data.tweets));
   }
 
-  post(tweet): Observable<ITweet> {
+  post(tweet: ITweet | IPost): Observable<ITweet> {
     return this.apiService.post('/tweets', { tweet: tweet })
     .pipe(map(
       data => {
@@ -32,15 +31,15 @@ export class TweetService {
     ));
   }
 
-  delete(id) {
+  delete(id: string) {
     return this.apiService.delete(`/tweets/${id}`);
   }
 
-  favorite(id): Observable<string[]> {
+  favorite(id: string): Observable<string[]> {
     return this.apiService.post(`/tweets/${id}/star-toggle`);
   }
 
-  unfavorite(id): Observable<string[]> {
+  unfavorite(id: string): Observable<string[]> {
     return this.apiService.post(`/tweets/${id}/star-toggle`);
   }
   

@@ -36,7 +36,6 @@ export class PostComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(this.authService.currentUser.subscribe(
       userData => {
-        console.log(userData);
         this.currentUser = userData;
       }
     ));
@@ -71,7 +70,6 @@ export class PostComponent implements OnInit, OnDestroy {
     this.textPost = '';
     this.subscriptions.push(this.tweetService.post(post).subscribe(
       tweet => {
-        console.log(tweet);
         this.postClickedEE.emit(true);
       },
       err => {

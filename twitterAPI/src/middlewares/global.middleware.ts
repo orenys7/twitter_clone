@@ -3,13 +3,13 @@ import { Request, Response, NextFunction } from 'express';
 import logger from 'morgan';
 import cors from 'cors';
 import passport from 'passport';
-import { initPassport } from './passport.middleware';
+import { initPassport } from '../api/middlewares/passport.middleware';
 
 export const setGlobalMiddleware = (app: any) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cors());
-  app.use('/assets', express.static(__dirname + '/store'));
+  app.use('/assets', express.static(__dirname + '/assets'));
   app.use(logger('dev'));
 
 

@@ -7,7 +7,6 @@ import {
 	NOT_FOUND
 } from 'http-status-codes';
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 import membersService from './members.service';
 
 export default {

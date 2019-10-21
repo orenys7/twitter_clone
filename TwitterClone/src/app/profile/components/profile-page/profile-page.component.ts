@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TweetService, ProfileService } from 'src/app/core/services';
+import { ProfileService } from 'src/app/core/services';
 import { ActivatedRoute } from '@angular/router';
 import { IProfile, ITweet } from 'src/app/core/models';
-import { tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 @Component({
