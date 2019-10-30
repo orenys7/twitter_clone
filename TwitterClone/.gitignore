@@ -8,11 +8,11 @@
 /bazel-out
 
 # dependencies
-TwitterClone/node_modules
-twitterAPI/node_modules
+TwitterClone/node_modules/
+twitterAPI/node_modules/
 
 
-twitterAPI/src/config
+twitterAPI/src/config/
 
 # profiling files
 chrome-profiler-events*.json
